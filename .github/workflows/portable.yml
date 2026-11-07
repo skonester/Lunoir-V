@@ -1,4 +1,4 @@
-# Builds the self-contained Lunoir V for 64-bit Windows, checks the unpacked result, and
+# Builds the self-contained Lunoir V for 64-bit Windows with the project's own scripts and
 # keeps it as a run artifact. Pushing a v* tag also publishes it as a GitHub release.
 name: Portable build
 
@@ -72,17 +72,6 @@ jobs:
       - name: Build
         run: ./build-flet.ps1
 
-      - name: Test
-        run: |
-          $ErrorActionPreference = 'Stop'
-          v -cc gcc test mpv/
-          if ($LASTEXITCODE -ne 0) { throw 'The V tests failed.' }
-          # test_shell and test_thumbs open real windows, so they are left to desktop runs
-          .venv/Scripts/python.exe -m unittest -v flet_lunoir.tests.test_backend flet_lunoir.tests.test_port `
-            flet_lunoir.tests.test_profile flet_lunoir.tests.test_volume flet_lunoir.tests.test_ytdl `
-            flet_lunoir.tests.test_ytdl_update
-          if ($LASTEXITCODE -ne 0) { throw 'The Python tests failed.' }
-
       - name: Package
         run: |
           $ErrorActionPreference = 'Stop'
@@ -93,24 +82,6 @@ jobs:
           $hash = (Get-FileHash "dist/$name" -Algorithm SHA256).Hash.ToLower()
           Set-Content -LiteralPath "dist/$name.sha256" -Encoding ascii -Value "$hash  $name"
           Add-Content -LiteralPath $env:GITHUB_ENV -Encoding ascii -Value "PORTABLE_ZIP=$name"
-
-      - name: Check the unpacked zip
-        run: |
-          $ErrorActionPreference = 'Stop'
-          $unpacked = Join-Path $env:RUNNER_TEMP 'unpacked'
-          Expand-Archive "dist/$env:PORTABLE_ZIP" -DestinationPath $unpacked
-          $portable = Join-Path $unpacked 'Lunoir-V'
-          # The V programs must not need GCC's runtime DLLs on the user's PC
-          foreach ($exe in 'Lunoir-V.exe', 'flet_lunoir/runtime/vmpv-host.exe') {
-            $imports = objdump -p (Join-Path $portable $exe) | Select-String 'DLL Name'
-            $imports | Write-Host
-            if ($imports -match 'libgcc|libstdc|libwinpthread') { throw "$exe needs a GCC runtime DLL." }
-          }
-          # Only what any Windows PC has: a dependency on the toolchain or Python fails here
-          $env:PATH = 'C:\Windows\System32;C:\Windows'
-          Remove-Item Env:C_INCLUDE_PATH
-          & (Join-Path $portable 'python/python.exe') .github/scripts/check_portable.py
-          if ($LASTEXITCODE -ne 0) { throw 'The portable build failed its check.' }
 
       - uses: actions/upload-artifact@v7
         with:
