@@ -1,0 +1,128 @@
+# Builds the self-contained Lunoir V for 64-bit Windows, checks the unpacked result, and
+# keeps it as a run artifact. Pushing a v* tag also publishes it as a GitHub release.
+name: Portable build
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+env:
+  # The toolchain the project is developed and tested with. libmpv-2.dll is in the repo.
+  V_VERSION: '0.5.2'
+  V_SHA256: 5f1d619b6b04a2b54b4ad21826a25bdcba2acf75a941c8f72fc95672b6b064ca
+  # GCC 15.2.0, the same archive `scoop install gcc` uses
+  GCC_ARCHIVE: components-20.0
+  GCC_SHA256: 561d873b7f95dbb39a34b7ab00050dc6028808310a847721a8aea5e5b0bff1c9
+  V_C_ERROR_BUG_REPORT_DISABLED: '1'
+
+jobs:
+  portable:
+    name: Windows x86_64
+    runs-on: windows-2025
+    timeout-minutes: 30
+    permissions:
+      contents: write # only the tag-only release step writes
+    defaults:
+      run:
+        shell: powershell # build-flet.ps1 and package-flet.ps1 are tested on 5.1
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+          architecture: x64
+
+      - name: Install V
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $zip = Join-Path $env:RUNNER_TEMP 'v_windows.zip'
+          curl.exe -fsSL -o $zip "https://github.com/vlang/v/releases/download/$env:V_VERSION/v_windows.zip"
+          if ($LASTEXITCODE -ne 0) { throw 'Could not download V.' }
+          if ((Get-FileHash $zip -Algorithm SHA256).Hash -ne $env:V_SHA256) { throw 'V archive checksum mismatch.' }
+          Expand-Archive $zip -DestinationPath $env:RUNNER_TEMP
+          Add-Content -LiteralPath $env:GITHUB_PATH -Encoding ascii -Value (Join-Path $env:RUNNER_TEMP 'v')
+
+      - name: Install GCC
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $archive = Join-Path $env:RUNNER_TEMP "$env:GCC_ARCHIVE.7z"
+          curl.exe -fsSL -o $archive "https://nuwen.net/files/mingw/$env:GCC_ARCHIVE.7z"
+          if ($LASTEXITCODE -ne 0) { throw 'Could not download GCC.' }
+          if ((Get-FileHash $archive -Algorithm SHA256).Hash -ne $env:GCC_SHA256) { throw 'GCC archive checksum mismatch.' }
+          7z x $archive "-o$env:RUNNER_TEMP" -y -bso0
+          if ($LASTEXITCODE -ne 0) { throw 'Could not unpack GCC.' }
+          $gcc = Join-Path $env:RUNNER_TEMP $env:GCC_ARCHIVE
+          foreach ($inner in Get-ChildItem $gcc -Filter *.7z | Where-Object Name -Match '^(binutils-|mingw-w64\+gcc)') {
+            7z x $inner.FullName "-o$gcc" -y -bso0
+            if ($LASTEXITCODE -ne 0) { throw "Could not unpack $($inner.Name)." }
+          }
+          Add-Content -LiteralPath $env:GITHUB_PATH -Encoding ascii -Value (Join-Path $gcc 'bin')
+          Add-Content -LiteralPath $env:GITHUB_ENV -Encoding ascii -Value "C_INCLUDE_PATH=$(Join-Path $gcc 'include')"
+
+      - name: Show the toolchain
+        run: |
+          v version
+          gcc --version
+          python --version
+
+      - name: Build
+        run: ./build-flet.ps1
+
+      - name: Test
+        run: |
+          $ErrorActionPreference = 'Stop'
+          v -cc gcc test mpv/
+          if ($LASTEXITCODE -ne 0) { throw 'The V tests failed.' }
+          # test_shell and test_thumbs open real windows, so they are left to desktop runs
+          .venv/Scripts/python.exe -m unittest -v flet_lunoir.tests.test_backend flet_lunoir.tests.test_port `
+            flet_lunoir.tests.test_profile flet_lunoir.tests.test_volume flet_lunoir.tests.test_ytdl `
+            flet_lunoir.tests.test_ytdl_update
+          if ($LASTEXITCODE -ne 0) { throw 'The Python tests failed.' }
+
+      - name: Package
+        run: |
+          $ErrorActionPreference = 'Stop'
+          ./package-flet.ps1 -SkipBuild -Zip
+          $version = if ($env:GITHUB_REF_TYPE -eq 'tag') { "-$env:GITHUB_REF_NAME" } else { '' }
+          $name = "Lunoir-V$version-windows-x86_64.zip"
+          Move-Item -LiteralPath dist/Lunoir-V.zip -Destination "dist/$name"
+          $hash = (Get-FileHash "dist/$name" -Algorithm SHA256).Hash.ToLower()
+          Set-Content -LiteralPath "dist/$name.sha256" -Encoding ascii -Value "$hash  $name"
+          Add-Content -LiteralPath $env:GITHUB_ENV -Encoding ascii -Value "PORTABLE_ZIP=$name"
+
+      - name: Check the unpacked zip
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $unpacked = Join-Path $env:RUNNER_TEMP 'unpacked'
+          Expand-Archive "dist/$env:PORTABLE_ZIP" -DestinationPath $unpacked
+          $portable = Join-Path $unpacked 'Lunoir-V'
+          # The V programs must not need GCC's runtime DLLs on the user's PC
+          foreach ($exe in 'Lunoir-V.exe', 'flet_lunoir/runtime/vmpv-host.exe') {
+            $imports = objdump -p (Join-Path $portable $exe) | Select-String 'DLL Name'
+            $imports | Write-Host
+            if ($imports -match 'libgcc|libstdc|libwinpthread') { throw "$exe needs a GCC runtime DLL." }
+          }
+          # Only what any Windows PC has: a dependency on the toolchain or Python fails here
+          $env:PATH = 'C:\Windows\System32;C:\Windows'
+          Remove-Item Env:C_INCLUDE_PATH
+          & (Join-Path $portable 'python/python.exe') .github/scripts/check_portable.py
+          if ($LASTEXITCODE -ne 0) { throw 'The portable build failed its check.' }
+
+      - uses: actions/upload-artifact@v7
+        with:
+          path: dist/Lunoir-V*-windows-x86_64.zip
+          archive: false # the file is already a zip
+          retention-days: 14
+          if-no-files-found: error
+
+      - name: Publish the release
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create $env:GITHUB_REF_NAME "dist/$env:PORTABLE_ZIP" "dist/$env:PORTABLE_ZIP.sha256" --verify-tag --generate-notes
+          if ($LASTEXITCODE -ne 0) { throw 'Could not publish the release.' }

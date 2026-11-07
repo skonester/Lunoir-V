@@ -1,0 +1,7 @@
+*.exe
+*.ppm
+.venv/
+__pycache__/
+flet_lunoir/runtime/
+*.log
+dist/

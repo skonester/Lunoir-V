@@ -1,0 +1,2 @@
+flet[desktop]==1.0.5
+pywin32==312; sys_platform == 'win32'
