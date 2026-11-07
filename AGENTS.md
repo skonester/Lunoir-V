@@ -5,8 +5,8 @@ it is.
 
 ## Picking this up
 
-Repository: https://github.com/skonester/Lunoir-V. Not initialised or pushed from this
-folder yet (2026-11-07). `libmpv-2.dll` is 94 MiB: under GitHub's 100 MB limit, above its
+Repository: https://github.com/skonester/Lunoir-V (private as of 2026-11-07, so the Actions
+API needs a sign-in). `libmpv-2.dll` is 94 MiB: under GitHub's 100 MB limit, above its
 50 MB warning. Exporting what git would add and running `build-flet.ps1` and the Python
 tests there was checked 2026-11-07.
 
@@ -261,9 +261,12 @@ so on mean that repo. Only what the app reads at run time is kept in `lunoir/`.
   open no windows, packages, then unpacks the zip and runs `.github/scripts/check_portable.py`
   with the build's own Python and `PATH` cut to Windows' folders: x86_64 headers, playback
   through `vmpv-host`, translations, and TLS to GitHub. The zip is kept as an artifact for
-  14 days; a `v*` tag publishes it as a release. The steps after the toolchain install
-  were run locally on a clean export (2026-11-07) with the installed V and GCC. The
-  workflow has not run on GitHub yet, and Flet's window is not opened in CI.
+  14 days; a `v*` tag publishes it as a release. Flet's window is not opened in CI. First
+  run on GitHub (2026-11-07) got through the toolchain install, build and V tests, then
+  failed one Python test, a timing race in the test itself. Runners are slower than a
+  desktop: to reproduce that locally, pin the tests to one core shared with busy loops
+  (`SetProcessAffinityMask`, which children inherit). A test must wait for the state it
+  checks, not for an event that an earlier action may also send.
 - Packaging: `package-flet.ps1` builds, then assembles `dist/Lunoir-V/` (ignored):
   a copy of the Python the `.venv` was made from (`sys.base_prefix`, same version,
   so pywin32's compiled modules match; stdlib minus tests, IDLE, Tk, ensurepip), the

@@ -41,15 +41,24 @@ class BackendTest(unittest.IsolatedAsyncioTestCase):
                 if event.get("event") == kind and predicate(event):
                     return event
 
+    async def position_near(self, target, seconds=10):
+        """Waits for the position itself: the load's own playback-restart may arrive after
+        a seek is sent, so that event cannot say the seek landed."""
+        loop = asyncio.get_running_loop()
+        deadline = loop.time() + seconds
+        while True:
+            position = await self.backend.command("get_property", "time-pos")
+            if abs(position - target) <= 0.1 or loop.time() > deadline:
+                return position
+            await asyncio.sleep(0.02)
+
     async def test_v_binding_playback_and_property_events(self):
         await self.backend.command("loadfile", "av://lavfi:testsrc=duration=30:size=320x180:rate=24")
         await self.event("file-loaded")
         await self.backend.set("pause", True)
         await self.event("property-change", lambda e: e.get("name") == "pause" and e.get("data") is True)
         await self.backend.command("seek", 10, "absolute+exact")
-        await self.event("playback-restart")
-        position = await self.backend.command("get_property", "time-pos")
-        self.assertAlmostEqual(position, 10, delta=0.1)
+        self.assertAlmostEqual(await self.position_near(10), 10, delta=0.1)
         await self.backend.set("volume", 73)
         self.assertEqual(await self.backend.command("get_property", "volume"), 73)
         self.assertEqual(await self.backend.command("get_property", "width"), 320)
