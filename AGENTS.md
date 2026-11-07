@@ -261,12 +261,13 @@ so on mean that repo. Only what the app reads at run time is kept in `lunoir/`.
   open no windows, packages, then unpacks the zip and runs `.github/scripts/check_portable.py`
   with the build's own Python and `PATH` cut to Windows' folders: x86_64 headers, playback
   through `vmpv-host`, translations, and TLS to GitHub. The zip is kept as an artifact for
-  14 days; a `v*` tag publishes it as a release. Flet's window is not opened in CI. First
-  run on GitHub (2026-11-07) got through the toolchain install, build and V tests, then
-  failed one Python test, a timing race in the test itself. Runners are slower than a
-  desktop: to reproduce that locally, pin the tests to one core shared with busy loops
-  (`SetProcessAffinityMask`, which children inherit). A test must wait for the state it
-  checks, not for an event that an earlier action may also send.
+  14 days; a `v*` tag publishes it as a release. Flet's window is not opened in CI. The
+  first two runs on GitHub (2026-11-07) passed the toolchain install, build and V tests,
+  then failed `test_host_dies_with_a_killed_front_end`: its child runs on the base Python,
+  and the runner's has no pywin32. The dev machine's Python 3.11 has pywin32 globally,
+  which hid it, so run `python -S` to see what a clean base Python does. Separately,
+  the seek test had a real race: it failed under one-core load (`SetProcessAffinityMask`,
+  which children inherit) and now waits for the position instead of an event.
 - Packaging: `package-flet.ps1` builds, then assembles `dist/Lunoir-V/` (ignored):
   a copy of the Python the `.venv` was made from (`sys.base_prefix`, same version,
   so pywin32's compiled modules match; stdlib minus tests, IDLE, Tk, ensurepip), the

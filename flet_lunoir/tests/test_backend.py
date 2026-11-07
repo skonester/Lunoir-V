@@ -75,7 +75,8 @@ class BackendTest(unittest.IsolatedAsyncioTestCase):
 
     async def test_host_dies_with_a_killed_front_end(self):
         # a front end that dies without close() must not leave the host behind
-        script = ("import asyncio, sys\n"
+        script = ("import asyncio, site, sys\n"
+                  "site.addsitedir(sys.argv[2])\n"  # runs pywin32's .pth; PYTHONPATH would not
                   "from flet_lunoir.backend import MpvController\n"
                   "async def main():\n"
                   "    b = MpvController(log_directory=__import__('pathlib').Path(sys.argv[1]))\n"
@@ -85,10 +86,12 @@ class BackendTest(unittest.IsolatedAsyncioTestCase):
                   "asyncio.run(main())\n")
         # The base interpreter, not the venv's python.exe redirector: killing the
         # redirector would let its own cleanup end the host and hide a missing job.
+        # -S leaves out the base Python's own packages, which a developer's may have
+        # pywin32 in and a CI runner's does not, so the test runs the same on both.
         packages = next(p for p in sys.path if p.endswith("site-packages"))
-        child = subprocess.Popen([getattr(sys, "_base_executable", sys.executable), "-c", script,
-                                  self.directory.name], cwd=ROOT, stdout=subprocess.PIPE, text=True,
-                                 env={**os.environ, "PYTHONPATH": os.pathsep.join([str(ROOT), packages])})
+        child = subprocess.Popen([getattr(sys, "_base_executable", sys.executable), "-S", "-c", script,
+                                  self.directory.name, packages], cwd=ROOT, stdout=subprocess.PIPE, text=True,
+                                 env={**os.environ, "PYTHONPATH": str(ROOT)})
         try:
             host_pid = int(child.stdout.readline())
             self.assertTrue(alive(host_pid))
