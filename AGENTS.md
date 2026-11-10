@@ -260,7 +260,10 @@ so on mean that repo. Only what the app reads at run time is kept in `lunoir/`.
   15.2 pinned by checksum (the runner has no MinGW) and Python 3.11. It only runs
   `build-flet.ps1` and `package-flet.ps1`, as a local build does, on the user's decision:
   no tests or other checks may stand between a push and the zip. The zip is kept as an
-  artifact for 14 days; a `v*` tag publishes it as a release. Run the tests locally. The
+  artifact for 14 days. Every build of `main` (push or manual run) deletes and recreates
+  the `nightly` pre-release and its tag at that commit; a `v*` tag publishes it as a full
+  release. Builds of one ref run one at a time (a newer push cancels an older non-tag
+  build), so two pushes can't race over `nightly`. Run the tests locally. The
   runner's base Python has no pywin32, while the dev machine's has it globally, which is
   what failed `test_host_dies_with_a_killed_front_end` there (fixed with `python -S`).
 - Packaging: `package-flet.ps1` builds, then assembles `dist/Lunoir-V/` (ignored):
