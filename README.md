@@ -1,49 +1,165 @@
+<div align="center">
+
+<img src="lunoir/src/renderer/src/assets/logo.png" alt="Lunoir V logo" width="128">
+
 # Lunoir V
 
-A desktop media player for Windows: the interface of
-[Lunoir](https://github.com/zhbj420/Lunoir) rebuilt in Flet/Python, with every playback
-command going through **v-mpv**, this repo's [mpv](https://mpv.io/) bindings for the
-[V language](https://vlang.io/). No Electron or Node is involved.
+**A lightweight, mpv-powered media player for Windows: Lunoir's interface, without Electron.**
 
-## Run it
+[![Portable build](https://github.com/skonester/Lunoir-V/actions/workflows/portable.yml/badge.svg)](https://github.com/skonester/Lunoir-V/actions/workflows/portable.yml)
+[![Download nightly](https://img.shields.io/badge/download-nightly-7c4dff?logo=github)](https://github.com/skonester/Lunoir-V/releases/tag/nightly)
+![Platform: Windows x64](https://img.shields.io/badge/platform-Windows%20x64-0078D4?logo=windows)
+![Engine: mpv 0.41](https://img.shields.io/badge/engine-mpv%200.41-691F69)
+![Built with V and Python](https://img.shields.io/badge/built%20with-V%20%2B%20Python-5D87BF)
+[![License: GPL-3.0-or-later](https://img.shields.io/badge/license-GPL--3.0--or--later-blue)](LICENSE)
 
-You need Windows, Python 3.10+, [V](https://vlang.io/) and GCC (`scoop install v gcc`).
+[Download](#-download) · [Features](#-features) · [Shortcuts](#-keyboard-and-mouse) · [Build from source](#-build-from-source) · [The V bindings](#-v-mpv-the-bindings)
+
+</div>
+
+---
+
+Lunoir V brings the polished interface of [Lunoir](https://github.com/zhbj420/Lunoir) to a
+native-feeling desktop app built with [Flet](https://flet.dev/) and Python. Every frame
+it plays is decoded and rendered by [mpv](https://mpv.io/), driven through
+**v-mpv**, this repo's own libmpv bindings for the [V language](https://vlang.io/). No
+Electron, no Node.js, no bundled browser: just mpv's playback engine behind a modern,
+minimal UI.
+
+> [!NOTE]
+> Lunoir V is in active development and tested on Windows only. Some of Lunoir's
+> features are still being ported (see the [roadmap](#-roadmap)).
+
+## 📥 Download
+
+Grab the portable build from [**Releases**](https://github.com/skonester/Lunoir-V/releases):
+
+- **`nightly`** is rebuilt automatically from every commit to `main`.
+- **`v*` releases** are tagged versions.
+
+Unzip anywhere and run **`Lunoir-V.exe`**. No installer, no admin rights, and nothing
+else to install: Python, the Flet runtime and mpv are all inside the folder. Each zip
+ships with a `.sha256` file so you can verify the download. Settings live in
+`%APPDATA%\Lunoir V`, so updating means replacing the folder.
+
+## ✨ Features
+
+### 🎬 Playback engine
+
+- **mpv inside**: the codec and container support of FFmpeg-based mpv, from H.264,
+  HEVC and AV1 to MKV, MP4 and WebM
+- **GPU rendering** through mpv's libplacebo-based `gpu-next` renderer on Direct3D 11
+- **Hardware-accelerated decoding** (`hwdec=auto` out of the box, configurable)
+- **Frame-accurate stepping** forwards and backwards, and up to **150 % volume boost**
+- **Audio passthrough** (S/PDIF) for your choice of codecs, and pitch correction at
+  any playback speed
+- **A-B loop**, playback speed and aspect ratio presets, deinterlacing
+- **Screenshots** in your choice of format, saved straight to disk
+
+### 💎 Interface
+
+- **Floating, auto-hiding on-screen controller** over full-size video, or a classic
+  docked control bar
+- **Seek-bar thumbnail previews** while hovering over the timeline
+- **Mouse-wheel volume and Ctrl+wheel zoom** with on-screen indicators; drag to pan a
+  zoomed picture
+- **Drag and drop** for files, folders and links
+- **Nine interface languages**, switchable live
+- **Single-instance**: opening another file hands it to the window that's already open
+
+### 💬 Subtitles and audio tracks
+
+- Switch audio and subtitle tracks on the fly, and load external ones
+- Automatic loading of matching subtitle files
+- Full subtitle styling: font, size, spacing, bold, outline, position and code page
+- Brightness control for subtitles over **HDR** video, for text and bitmap (PGS/VobSub)
+  subtitles alike
+- Preferred audio and subtitle languages
+
+### 📺 Streaming and IPTV
+
+- **Stream online video** from the sites [yt-dlp](https://github.com/yt-dlp/yt-dlp)
+  supports, with a selectable quality cap and optional browser cookies
+- **Self-updating yt-dlp**: downloaded on first use, checksum-verified, kept current in
+  the background, or updated on demand
+- **Online playlists** expand into the play queue
+- **IPTV and live TV**: load M3U channel lists, with grouped channels, search and a
+  live indicator
+
+### 📚 Library and memory
+
+- **Resume playback** where you left off, per file
+- **Remembers your audio and subtitle choices** for each file
+- **Recents, favourites and saved playlists** in a built-in library
+- Folder playback and local **M3U playlists** with per-playlist progress
+- **File info panel** with codec, resolution, bitrate and other stream details
+
+## ⚡ Keyboard and mouse
+
+| Input | Action |
+|---|---|
+| <kbd>Space</kbd> / <kbd>K</kbd> / click | Play / pause |
+| <kbd>←</kbd> <kbd>→</kbd> | Seek 5 s (frame step while paused) |
+| <kbd>↑</kbd> <kbd>↓</kbd> / mouse wheel | Volume ±5 |
+| <kbd>M</kbd> | Mute |
+| <kbd>.</kbd> / <kbd>,</kbd> | Next / previous item |
+| <kbd>F</kbd> / <kbd>F11</kbd> / double-click | Fullscreen |
+| <kbd>Esc</kbd> | Leave fullscreen |
+| <kbd>I</kbd> | File info |
+| <kbd>Ctrl</kbd>+<kbd>O</kbd> | Open files |
+| <kbd>Ctrl</kbd>+wheel | Zoom (<kbd>Ctrl</kbd>+double-click resets) |
+| Right-click | Quick menu: speed, aspect, A-B loop, screenshot and more |
+
+## 🔧 Build from source
+
+**Requirements:** Windows, Python 3.10+, [V](https://vlang.io/) and GCC.
 
 ```powershell
+scoop install v gcc
 git clone https://github.com/skonester/Lunoir-V.git
 cd Lunoir-V
 ./build-flet.ps1
 ```
 
-Then double-click **`Lunoir-V.exe`**. The first build sets up a Python environment and
-downloads Flet's desktop runtime.
+Then double-click **`Lunoir-V.exe`**. The first build creates a Python virtual
+environment and downloads Flet's desktop runtime; later builds can skip that with
+`./build-flet.ps1 -SkipDependencies`.
 
-`./package-flet.ps1 -Zip` makes a self-contained copy in `dist/` (about 250 MB) that runs
-on a PC with none of the above installed. GitHub Actions builds the same thing for
-64-bit Windows, and tagged versions are on the
-[Releases](https://github.com/skonester/Lunoir-V/releases) page: unzip and run
-`Lunoir-V.exe`. Settings stay in `%APPDATA%/Lunoir V`, outside the folder.
+To make your own portable package (about 250 MB, in `dist/`):
 
-## What it does
+```powershell
+./package-flet.ps1 -Zip
+```
 
-- Lunoir's home screen and controls, which float over the video and hide when idle, or
-  sit docked below it
-- Lunoir's nine interface languages, its settings and keyboard shortcuts
-- per-file resume, and remembered audio and subtitle choices
-- folders, M3U playlists and IPTV channel lists
-- online video through [yt-dlp](https://github.com/yt-dlp/yt-dlp), which it downloads on
-  first use and keeps current; **Settings > General > Update now** gets the latest
-  release on demand
-- seek-bar previews, opening files and links by drag and drop, one window per profile
-- the right-click menu (speed, aspect, A-B loop, screenshots), a file info panel, and a
-  library of recent and saved items
+Developer notes, tests and design decisions are in [AGENTS.md](AGENTS.md).
 
-Not ported yet: picture enhancement, discs, recording, timeline editing, Lunoir's
-translucent panels, and an installer with file associations.
+## 🧱 Architecture
 
-It is an experiment, tested on Windows only.
+```
+┌──────────────────────────────┐   JSON IPC over a    ┌───────────────────────────┐
+│  Lunoir V (Flet / Python)    │   named pipe         │  vmpv-host (V)            │
+│  UI, library, playlists,     │ ───────────────────▶ │  mpv's IPC protocol,      │
+│  settings, yt-dlp, IPTV      │ ◀─────────────────── │  served through v-mpv     │
+└──────────────┬───────────────┘   events, properties └─────────────┬─────────────┘
+               │ native child window (--wid)                        │ libmpv client API
+               └───────────────────── video ◀───────────────────────┤
+                                                                    ▼
+                                                            libmpv-2.dll (mpv 0.41)
+```
 
-## The V bindings
+| Folder | What it is |
+|---|---|
+| [`flet_lunoir/`](flet_lunoir/) | Lunoir V, the player |
+| [`host/`](host/) | `vmpv-host`, a drop-in stand-in for `mpv.exe` built on the bindings, serving mpv's JSON IPC |
+| [`mpv/`](mpv/) | **v-mpv**, the V module, with mpv's headers and import libraries |
+| [`lunoir/`](lunoir/) | Lunoir 0.9.4's assets and translations, unmodified, with its license and credits |
+
+## 🧩 v-mpv: the bindings
+
+v-mpv is a complete binding of libmpv's client API for V, ported from
+[go-mpv](https://github.com/gen2brain/go-mpv). Open files and streams, control playback,
+read and observe properties, and react to player events, with V results for errors and a
+sum type for mpv's node values.
 
 ```v
 import mpv
@@ -66,23 +182,34 @@ fn main() {
 }
 ```
 
-The bindings are a port of the Go library
-[go-mpv](https://github.com/gen2brain/go-mpv) and ship with their own mpv build
-(`libmpv-2.dll`). They let V programs open files or streams, control playback (pause,
-seek, volume, tracks, subtitles), read player state, and react to player events.
+- **All 45 functions** of mpv's `client.h`, plus the software and OpenGL render API
+- **Self-contained**: copy `mpv/` into your project, `import mpv`, and put
+  `libmpv-2.dll` (included) next to your program
+- **Builds with GCC and TCC**, compiling against mpv's real headers so struct layouts
+  can't drift; tests check every enum value against the C constants
 
-## What's in here
+## 🧭 Roadmap
 
-- **`flet_lunoir/`**: Lunoir V, the player.
-- **`mpv/`**: the bindings, a V module. Copy it into a project, `import mpv`, and put
-  `libmpv-2.dll` next to the program.
-- **`host/`**: `vmpv-host`, a stand-in for `mpv.exe` built on the bindings. The player
-  runs it as its playback backend.
-- **`lunoir/`**: the files Lunoir V reads from [Lunoir](https://github.com/zhbj420/Lunoir)
-  0.9.4: its assets and translations, unmodified, with its license and credits.
+Lunoir features not ported yet:
 
-Building, testing and project notes are in [AGENTS.md](AGENTS.md).
+- [ ] Installer with file associations
+- [ ] Picture enhancement (sharpening, denoising, deblocking, upscaling shaders)
+- [ ] Stream recording, timecode overlay, mini player
+- [ ] Update notifications
+- [ ] Timeline trimming and clips
+- [ ] Disc playback and Emby
+- [ ] Translucent (acrylic) panels
 
-## License
+## 🙏 Credits
 
-GPL-3.0-or-later. Lunoir, by Yao666, keeps its MIT license and credits in `lunoir/`.
+- [**Lunoir**](https://github.com/zhbj420/Lunoir) by Yao666, whose design, assets and
+  translations this player is built on (MIT, see [`lunoir/`](lunoir/))
+- [**mpv**](https://mpv.io/), the playback engine
+- [**go-mpv**](https://github.com/gen2brain/go-mpv), which the V bindings are ported from
+- [**Flet**](https://flet.dev/) and [**yt-dlp**](https://github.com/yt-dlp/yt-dlp)
+
+## 📄 License
+
+Lunoir V is licensed under **GPL-3.0-or-later** (see [LICENSE](LICENSE)), including the
+mpv build it ships. The files from Lunoir keep their
+[MIT license and credits](lunoir/CREDITS.md).
