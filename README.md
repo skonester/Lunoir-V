@@ -34,7 +34,7 @@ minimal UI.
 
 Grab the portable build from [**Releases**](https://github.com/skonester/Lunoir-V/releases):
 
-- **`nightly`** is rebuilt automatically from every commit to `main`.
+- **`nightly`**, the Latest release, is rebuilt automatically from every commit to `main`.
 - **`v*` releases** are tagged versions.
 
 Unzip anywhere and run **`Lunoir-V.exe`**. No installer, no admin rights, and nothing
