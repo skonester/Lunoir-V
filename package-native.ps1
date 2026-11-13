@@ -16,9 +16,9 @@ try {
         $global:LASTEXITCODE = 0
     }
 
-    Copy-Tree 'flet_lunoir/runtime/flet' (Join-Path $dist 'flet_lunoir/runtime/flet')
+    Copy-Tree 'runtime/flet' (Join-Path $dist 'runtime/flet')
     Copy-Tree 'lunoir/src/renderer/src/assets' (Join-Path $dist 'lunoir/src/renderer/src/assets')
-    Copy-Tree 'lunoir/src/shared/i18n' (Join-Path $dist 'lunoir/src/shared/i18n')
+    Copy-Tree 'lunoir/i18n' (Join-Path $dist 'lunoir/i18n')
     Copy-Item -LiteralPath lunoir/LICENSE, lunoir/CREDITS.md -Destination (Join-Path $dist 'lunoir')
     Copy-Item -LiteralPath LICENSE, README.md, VERSION, Lunoir-V.exe, libmpv-2.dll -Destination $dist
     $size = (Get-ChildItem -LiteralPath $dist -Recurse -File | Measure-Object Length -Sum).Sum / 1MB

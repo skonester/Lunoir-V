@@ -108,7 +108,7 @@ fn test_profile_round_trip_selections_and_history() {
 }
 
 fn test_translations_and_flet_shell() {
-	parsed := parse_locale('  \'a\': \'it\\\'s\\nfine\',\n  \'b\':\n    "x \\u00e9",\n')
+	parsed := parse_locale('{"a":"it\\u0027s\\nfine","b":"x \\u00e9"}')
 	assert parsed == {
 		'a': "it's\nfine"
 		'b': 'x é'

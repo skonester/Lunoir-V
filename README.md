@@ -134,8 +134,8 @@ To make your own portable package in `dist/`:
 ```
 
 Developer notes, tests and design decisions are in [AGENTS.md](AGENTS.md).
-The [V application notes](v_lunoir/README.md) describe the manual port and local
-validation. The previous Python implementation remains in `flet_lunoir/` as a reference.
+The [V application notes](v_lunoir/README.md) describe the implementation and local
+validation. The build uses V/GCC and PowerShell; translations are plain JSON data.
 
 ## 🧱 Architecture
 
@@ -150,10 +150,10 @@ libmpv-2.dll renders into a native video child inside the Flet window
 | Folder | What it is |
 |---|---|
 | [`v_lunoir/`](v_lunoir/) | The native V player and Flet transport |
-| [`flet_lunoir/`](flet_lunoir/) | Previous Python implementation, retained as a reference; its ignored runtime folder holds the shared Flet client |
+| `runtime/flet/` | Downloaded Flet/Flutter desktop client (ignored; provisioned by the build script) |
 | [`host/`](host/) | Independent V implementation of mpv's JSON IPC, retained for binding consumers and reference tests |
 | [`mpv/`](mpv/) | **v-mpv**, the V module, with mpv's headers and import libraries |
-| [`lunoir/`](lunoir/) | Lunoir 0.9.4's assets and translations, unmodified, with its license and credits |
+| [`lunoir/`](lunoir/) | Lunoir 0.9.4's assets, JSON translations, license and credits |
 
 ## 🧩 v-mpv: the bindings
 

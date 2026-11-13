@@ -4,7 +4,7 @@ $ErrorActionPreference = 'Stop'
 $env:V_C_ERROR_BUG_REPORT_DISABLED = '1'
 Push-Location -LiteralPath $PSScriptRoot
 try {
-    $runtime = Join-Path $PSScriptRoot 'flet_lunoir/runtime/flet'
+    $runtime = Join-Path $PSScriptRoot 'runtime/flet'
     $client = Join-Path $runtime 'flet/flet.exe'
     if (-not (Test-Path -LiteralPath $client)) {
         if ($SkipDependencies) { throw 'Flet desktop runtime is missing. Run build-native.ps1 without -SkipDependencies once.' }

@@ -7,7 +7,7 @@ import x.json2
 
 fn project_root() string {
 	for root in [os.dir(os.executable()), os.getwd(), @VMODROOT] {
-		if os.is_dir(os.join_path(root, 'lunoir', 'src', 'shared', 'i18n')) { return root }
+		if os.is_file(os.join_path(root, 'lunoir', 'i18n', 'en.json')) { return root }
 	}
 	return os.dir(os.executable())
 }
@@ -97,7 +97,7 @@ fn run_player() ! {
 	mut listener := net.listen_tcp(.ip, '127.0.0.1:0')!
 	defer { listener.close() or {} }
 	address := listener.addr()!
-	client := os.join_path(root, 'flet_lunoir', 'runtime', 'flet', 'flet', 'flet.exe')
+	client := os.join_path(root, 'runtime', 'flet', 'flet', 'flet.exe')
 	if !os.is_file(client) {
 		return error('The Flet desktop runtime is missing. Run build-native.ps1 once.')
 	}
