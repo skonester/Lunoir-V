@@ -4,13 +4,15 @@
 
 # Lunoir V
 
+**Version 0.2.0**
+
 **A lightweight, mpv-powered media player for Windows: Lunoir's interface, without Electron.**
 
 [![Portable build](https://github.com/skonester/Lunoir-V/actions/workflows/portable.yml/badge.svg)](https://github.com/skonester/Lunoir-V/actions/workflows/portable.yml)
 [![Download nightly](https://img.shields.io/badge/download-nightly-7c4dff?logo=github)](https://github.com/skonester/Lunoir-V/releases/tag/nightly)
 ![Platform: Windows x64](https://img.shields.io/badge/platform-Windows%20x64-0078D4?logo=windows)
 ![Engine: mpv 0.41](https://img.shields.io/badge/engine-mpv%200.41-691F69)
-![Built with V and Python](https://img.shields.io/badge/built%20with-V%20%2B%20Python-5D87BF)
+![Built with V](https://img.shields.io/badge/built%20with-V-5D87BF)
 [![License: GPL-3.0-or-later](https://img.shields.io/badge/license-GPL--3.0--or--later-blue)](LICENSE)
 
 [Download](#-download) · [Features](#-features) · [Shortcuts](#-keyboard-and-mouse) · [Build from source](#-build-from-source) · [The V bindings](#-v-mpv-the-bindings)
@@ -20,7 +22,7 @@
 ---
 
 Lunoir V brings the polished interface of [Lunoir](https://github.com/zhbj420/Lunoir) to a
-native-feeling desktop app built with [Flet](https://flet.dev/) and Python. Every frame
+desktop app with a [Flet](https://flet.dev/)/Flutter interface controlled by native V code. Every frame
 it plays is decoded and rendered by [mpv](https://mpv.io/), driven through
 **v-mpv**, this repo's own libmpv bindings for the [V language](https://vlang.io/). No
 Electron, no Node.js, no bundled browser: just mpv's playback engine behind a modern,
@@ -38,7 +40,7 @@ Grab the portable build from [**Releases**](https://github.com/skonester/Lunoir-
 - **`v*` releases** are tagged versions.
 
 Unzip anywhere and run **`Lunoir-V.exe`**. No installer, no admin rights, and nothing
-else to install: Python, the Flet runtime and mpv are all inside the folder. Each zip
+else to install: the Flet runtime and mpv are inside the folder. No Python runtime is needed. Each zip
 ships with a `.sha256` file so you can verify the download. Settings live in
 `%APPDATA%\Lunoir V`, so updating means replacing the folder.
 
@@ -112,45 +114,44 @@ ships with a `.sha256` file so you can verify the download. Settings live in
 
 ## 🔧 Build from source
 
-**Requirements:** Windows, Python 3.10+, [V](https://vlang.io/) and GCC.
+**Requirements:** Windows x64, [V](https://vlang.io/) 0.5.2 and GCC (tested with 15.2).
 
 ```powershell
 scoop install v gcc
 git clone https://github.com/skonester/Lunoir-V.git
 cd Lunoir-V
-./build-flet.ps1
+./build-native.ps1
 ```
 
-Then double-click **`Lunoir-V.exe`**. The first build creates a Python virtual
-environment and downloads Flet's desktop runtime; later builds can skip that with
-`./build-flet.ps1 -SkipDependencies`.
+Then double-click **`Lunoir-V.exe`**. The first build downloads the checksum-verified
+Flet 1.0.5 desktop runtime. Rebuild with `./build-native.ps1 -SkipDependencies`.
+The old `build-flet.ps1` and `package-flet.ps1` names remain compatible aliases.
 
-To make your own portable package (about 250 MB, in `dist/`):
+To make your own portable package in `dist/`:
 
 ```powershell
-./package-flet.ps1 -Zip
+./package-native.ps1 -Zip
 ```
 
 Developer notes, tests and design decisions are in [AGENTS.md](AGENTS.md).
+The [V application notes](v_lunoir/README.md) describe the manual port and local
+validation. The previous Python implementation remains in `flet_lunoir/` as a reference.
 
 ## 🧱 Architecture
 
-```
-┌──────────────────────────────┐   JSON IPC over a    ┌───────────────────────────┐
-│  Lunoir V (Flet / Python)    │   named pipe         │  vmpv-host (V)            │
-│  UI, library, playlists,     │ ───────────────────▶ │  mpv's IPC protocol,      │
-│  settings, yt-dlp, IPTV      │ ◀─────────────────── │  served through v-mpv     │
-└──────────────┬───────────────┘   events, properties └─────────────┬─────────────┘
-               │ native child window (--wid)                        │ libmpv client API
-               └───────────────────── video ◀───────────────────────┤
-                                                                    ▼
-                                                            libmpv-2.dll (mpv 0.41)
+```text
+Flet / Flutter desktop client
+        <-> MessagePack over localhost TCP
+Lunoir-V.exe (V: UI state, playback, library, playlists, settings, yt-dlp)
+        <-> import mpv / libmpv client API
+libmpv-2.dll renders into a native video child inside the Flet window
 ```
 
 | Folder | What it is |
 |---|---|
-| [`flet_lunoir/`](flet_lunoir/) | Lunoir V, the player |
-| [`host/`](host/) | `vmpv-host`, a drop-in stand-in for `mpv.exe` built on the bindings, serving mpv's JSON IPC |
+| [`v_lunoir/`](v_lunoir/) | The native V player and Flet transport |
+| [`flet_lunoir/`](flet_lunoir/) | Previous Python implementation, retained as a reference; its ignored runtime folder holds the shared Flet client |
+| [`host/`](host/) | Independent V implementation of mpv's JSON IPC, retained for binding consumers and reference tests |
 | [`mpv/`](mpv/) | **v-mpv**, the V module, with mpv's headers and import libraries |
 | [`lunoir/`](lunoir/) | Lunoir 0.9.4's assets and translations, unmodified, with its license and credits |
 

@@ -1,0 +1,4986 @@
+{
+  "playback": {
+    "controls": [
+      {
+        "spacing": 4,
+        "_i": 63,
+        "controls": [
+          {
+            "expand": true,
+            "spacing": 2,
+            "wrap": true,
+            "run_spacing": 2,
+            "_i": 87,
+            "controls": [
+              {
+                "content": {
+                  "value": "@tr:set.tab.playback",
+                  "size": 13,
+                  "weight": "w600",
+                  "color": "#EEEEF0",
+                  "_i": 79,
+                  "_c": "Text"
+                },
+                "padding": {
+                  "left": 9,
+                  "top": 6,
+                  "right": 9,
+                  "bottom": 6
+                },
+                "bgcolor": "#3A3A42",
+                "border_radius": 8,
+                "on_click": true,
+                "_i": 80,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container"
+              },
+              {
+                "content": {
+                  "value": "@tr:set.sec.subtitles",
+                  "size": 13,
+                  "weight": "normal",
+                  "color": "#92929C",
+                  "_i": 81,
+                  "_c": "Text"
+                },
+                "padding": {
+                  "left": 9,
+                  "top": 6,
+                  "right": 9,
+                  "bottom": 6
+                },
+                "border_radius": 8,
+                "on_click": true,
+                "_i": 82,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container"
+              },
+              {
+                "content": {
+                  "value": "@tr:set.sec.interface",
+                  "size": 13,
+                  "weight": "normal",
+                  "color": "#92929C",
+                  "_i": 83,
+                  "_c": "Text"
+                },
+                "padding": {
+                  "left": 9,
+                  "top": 6,
+                  "right": 9,
+                  "bottom": 6
+                },
+                "border_radius": 8,
+                "on_click": true,
+                "_i": 84,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container"
+              },
+              {
+                "content": {
+                  "value": "@tr:set.tab.general",
+                  "size": 13,
+                  "weight": "normal",
+                  "color": "#92929C",
+                  "_i": 85,
+                  "_c": "Text"
+                },
+                "padding": {
+                  "left": 9,
+                  "top": 6,
+                  "right": 9,
+                  "bottom": 6
+                },
+                "border_radius": 8,
+                "on_click": true,
+                "_i": 86,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container"
+              }
+            ],
+            "_internals": {
+              "host_expanded": true
+            },
+            "_c": "Row"
+          },
+          {
+            "tooltip": "@tr:common.collapse",
+            "icon": 69563,
+            "icon_color": "#92929C",
+            "icon_size": 18,
+            "on_click": true,
+            "_i": 88,
+            "_c": "IconButton"
+          }
+        ],
+        "_internals": {
+          "host_expanded": true
+        },
+        "_c": "Row"
+      },
+      {
+        "expand": true,
+        "scroll": "auto",
+        "spacing": 6,
+        "_i": 64,
+        "controls": [
+          {
+            "content": {
+              "value": "PLAYLIST",
+              "size": 11,
+              "weight": "w600",
+              "color": "#92929C",
+              "_i": 89,
+              "_c": "Text"
+            },
+            "padding": {
+              "top": 10,
+              "bottom": 2
+            },
+            "_i": 90,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 95,
+              "controls": [
+                {
+                  "_i": 93,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.scanFolder.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 92,
+                      "_c": "Text"
+                    },
+                    {
+                      "scale": 0.8,
+                      "on_change": true,
+                      "_i": 91,
+                      "_c": "Switch"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.scanFolder.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 94,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 96,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 101,
+              "controls": [
+                {
+                  "_i": 99,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.resume.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 98,
+                      "_c": "Text"
+                    },
+                    {
+                      "scale": 0.8,
+                      "value": true,
+                      "on_change": true,
+                      "_i": 97,
+                      "_c": "Switch"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.resume.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 100,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 102,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 107,
+              "controls": [
+                {
+                  "_i": 105,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.resumePlaylist.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 104,
+                      "_c": "Text"
+                    },
+                    {
+                      "scale": 0.8,
+                      "value": true,
+                      "on_change": true,
+                      "_i": 103,
+                      "_c": "Switch"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.resumePlaylist.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 106,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 108,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "value": "AUDIO",
+              "size": 11,
+              "weight": "w600",
+              "color": "#92929C",
+              "_i": 109,
+              "_c": "Text"
+            },
+            "padding": {
+              "top": 10,
+              "bottom": 2
+            },
+            "_i": 110,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 115,
+              "controls": [
+                {
+                  "_i": 113,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.keepPitch.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 112,
+                      "_c": "Text"
+                    },
+                    {
+                      "scale": 0.8,
+                      "value": true,
+                      "on_change": true,
+                      "_i": 111,
+                      "_c": "Switch"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.keepPitch.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 114,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 116,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 121,
+              "controls": [
+                {
+                  "_i": 119,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.passthrough.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 118,
+                      "_c": "Text"
+                    },
+                    {
+                      "scale": 0.8,
+                      "on_change": true,
+                      "_i": 117,
+                      "_c": "Switch"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "Send compressed audio as a bitstream to an external receiver or DAC, which decodes it instead of Lunoir.\nRequires hardware that supports the format. Unsupported formats will play no sound.",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 120,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 122,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 138,
+              "controls": [
+                {
+                  "_i": 136,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.audioLang.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 135,
+                      "_c": "Text"
+                    },
+                    {
+                      "width": 172,
+                      "value": "",
+                      "on_select": true,
+                      "text_size": 12,
+                      "dense": true,
+                      "_i": 134,
+                      "_c": "Dropdown",
+                      "options": [
+                        {
+                          "key": "",
+                          "text": "@tr:common.default",
+                          "_i": 123,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "eng",
+                          "text": "@tr:opt.lang.english",
+                          "_i": 124,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "chi,zho",
+                          "text": "@tr:opt.lang.chinese",
+                          "_i": 125,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "jpn",
+                          "text": "@tr:opt.lang.japanese",
+                          "_i": 126,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "kor",
+                          "text": "@tr:opt.lang.korean",
+                          "_i": 127,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "fre",
+                          "text": "@tr:opt.lang.french",
+                          "_i": 128,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "ger",
+                          "text": "@tr:opt.lang.german",
+                          "_i": 129,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "spa",
+                          "text": "@tr:opt.lang.spanish",
+                          "_i": 130,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "ita",
+                          "text": "@tr:opt.lang.italian",
+                          "_i": 131,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "rus",
+                          "text": "@tr:opt.lang.russian",
+                          "_i": 132,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "por",
+                          "text": "@tr:opt.lang.portuguese",
+                          "_i": 133,
+                          "_c": "DropdownOption"
+                        }
+                      ]
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "Select this language automatically when a file is opened.\nDefault uses the file's own track order.",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 137,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 139,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "value": "VIDEO",
+              "size": 11,
+              "weight": "w600",
+              "color": "#92929C",
+              "_i": 140,
+              "_c": "Text"
+            },
+            "padding": {
+              "top": 10,
+              "bottom": 2
+            },
+            "_i": 141,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 149,
+              "controls": [
+                {
+                  "_i": 147,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.hwdec.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 146,
+                      "_c": "Text"
+                    },
+                    {
+                      "width": 172,
+                      "value": "auto",
+                      "on_select": true,
+                      "text_size": 12,
+                      "dense": true,
+                      "_i": 145,
+                      "_c": "Dropdown",
+                      "options": [
+                        {
+                          "key": "auto",
+                          "text": "@tr:opt.hwdec.auto",
+                          "_i": 142,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "auto-copy",
+                          "text": "@tr:opt.hwdec.autoCopy",
+                          "_i": 143,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "no",
+                          "text": "@tr:opt.hwdec.off",
+                          "_i": 144,
+                          "_c": "DropdownOption"
+                        }
+                      ]
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.hwdec.auto",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 148,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 150,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 158,
+              "controls": [
+                {
+                  "_i": 156,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.deint.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 155,
+                      "_c": "Text"
+                    },
+                    {
+                      "width": 172,
+                      "value": "no",
+                      "on_select": true,
+                      "text_size": 12,
+                      "dense": true,
+                      "_i": 154,
+                      "_c": "Dropdown",
+                      "options": [
+                        {
+                          "key": "auto",
+                          "text": "@tr:opt.deint.auto",
+                          "_i": 151,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "yes",
+                          "text": "@tr:opt.deint.on",
+                          "_i": 152,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "no",
+                          "text": "@tr:opt.deblock.off",
+                          "_i": 153,
+                          "_c": "DropdownOption"
+                        }
+                      ]
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "Broadcast video (1080i, 576i — most live TV, DVDs and TV recordings) stores each frame as two half-height fields captured a fraction of a second apart. On a modern display they show as comb-like teeth along moving edges.\nAuto only steps in when the source says it’s interlaced, so progressive video is left untouched. Force it on if a channel is mislabelled.",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 157,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 159,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 169,
+              "controls": [
+                {
+                  "_i": 167,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.quality.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 166,
+                      "_c": "Text"
+                    },
+                    {
+                      "width": 172,
+                      "value": "best",
+                      "on_select": true,
+                      "text_size": 12,
+                      "dense": true,
+                      "_i": 165,
+                      "_c": "Dropdown",
+                      "options": [
+                        {
+                          "key": "best",
+                          "text": "@tr:opt.quality.best",
+                          "_i": 160,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "2160",
+                          "text": "2160p (4K)",
+                          "_i": 161,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "1080",
+                          "text": "1080p",
+                          "_i": 162,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "720",
+                          "text": "720p",
+                          "_i": 163,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "480",
+                          "text": "480p",
+                          "_i": 164,
+                          "_c": "DropdownOption"
+                        }
+                      ]
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.quality.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 168,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 170,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 175,
+              "controls": [
+                {
+                  "_i": 173,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.cookies.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 172,
+                      "_c": "Text"
+                    },
+                    {
+                      "scale": 0.8,
+                      "on_change": true,
+                      "_i": 171,
+                      "_c": "Switch"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.cookies.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 174,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 176,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          }
+        ],
+        "_internals": {
+          "host_expanded": true
+        },
+        "_c": "Column"
+      }
+    ],
+    "events": {
+      "80:click": {
+        "name": "settings_tab",
+        "args": [
+          "playback"
+        ]
+      },
+      "82:click": {
+        "name": "settings_tab",
+        "args": [
+          "subs"
+        ]
+      },
+      "84:click": {
+        "name": "settings_tab",
+        "args": [
+          "interface"
+        ]
+      },
+      "86:click": {
+        "name": "settings_tab",
+        "args": [
+          "general"
+        ]
+      },
+      "88:click": {
+        "name": "toggle_panel",
+        "args": [
+          ""
+        ]
+      },
+      "91:change": {
+        "name": "setting_bool",
+        "args": [
+          "scanFolderIntoPlaylist",
+          0
+        ]
+      },
+      "97:change": {
+        "name": "setting_bool",
+        "args": [
+          "resumePlayback",
+          0
+        ]
+      },
+      "103:change": {
+        "name": "setting_bool",
+        "args": [
+          "resumePlaylistItem",
+          0
+        ]
+      },
+      "111:change": {
+        "name": "setting_bool",
+        "args": [
+          "keepPitch",
+          0
+        ]
+      },
+      "117:change": {
+        "name": "setting_bool",
+        "args": [
+          "audioPassthrough",
+          0
+        ]
+      },
+      "134:select": {
+        "name": "setting_select",
+        "args": [
+          "audioLang",
+          0
+        ]
+      },
+      "145:select": {
+        "name": "setting_select",
+        "args": [
+          "hwdec",
+          0
+        ]
+      },
+      "154:select": {
+        "name": "setting_select",
+        "args": [
+          "deinterlace",
+          0
+        ]
+      },
+      "165:select": {
+        "name": "setting_select",
+        "args": [
+          "streamQuality",
+          0
+        ]
+      },
+      "171:change": {
+        "name": "setting_bool",
+        "args": [
+          "useCookies",
+          0
+        ]
+      }
+    },
+    "bindings": {
+      "91": {
+        "key": "scanFolderIntoPlaylist",
+        "kind": "bool",
+        "digits": 0
+      },
+      "97": {
+        "key": "resumePlayback",
+        "kind": "bool",
+        "digits": 0
+      },
+      "103": {
+        "key": "resumePlaylistItem",
+        "kind": "bool",
+        "digits": 0
+      },
+      "111": {
+        "key": "keepPitch",
+        "kind": "bool",
+        "digits": 0
+      },
+      "117": {
+        "key": "audioPassthrough",
+        "kind": "bool",
+        "digits": 0
+      },
+      "134": {
+        "key": "audioLang",
+        "kind": "select",
+        "digits": 0
+      },
+      "145": {
+        "key": "hwdec",
+        "kind": "select",
+        "digits": 0
+      },
+      "154": {
+        "key": "deinterlace",
+        "kind": "select",
+        "digits": 0
+      },
+      "165": {
+        "key": "streamQuality",
+        "kind": "select",
+        "digits": 0
+      },
+      "171": {
+        "key": "useCookies",
+        "kind": "bool",
+        "digits": 0
+      }
+    }
+  },
+  "playback:cookies": {
+    "controls": [
+      {
+        "spacing": 4,
+        "_i": 237,
+        "controls": [
+          {
+            "expand": true,
+            "spacing": 2,
+            "wrap": true,
+            "run_spacing": 2,
+            "_i": 261,
+            "controls": [
+              {
+                "content": {
+                  "value": "@tr:set.tab.playback",
+                  "size": 13,
+                  "weight": "w600",
+                  "color": "#EEEEF0",
+                  "_i": 253,
+                  "_c": "Text"
+                },
+                "padding": {
+                  "left": 9,
+                  "top": 6,
+                  "right": 9,
+                  "bottom": 6
+                },
+                "bgcolor": "#3A3A42",
+                "border_radius": 8,
+                "on_click": true,
+                "_i": 254,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container"
+              },
+              {
+                "content": {
+                  "value": "@tr:set.sec.subtitles",
+                  "size": 13,
+                  "weight": "normal",
+                  "color": "#92929C",
+                  "_i": 255,
+                  "_c": "Text"
+                },
+                "padding": {
+                  "left": 9,
+                  "top": 6,
+                  "right": 9,
+                  "bottom": 6
+                },
+                "border_radius": 8,
+                "on_click": true,
+                "_i": 256,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container"
+              },
+              {
+                "content": {
+                  "value": "@tr:set.sec.interface",
+                  "size": 13,
+                  "weight": "normal",
+                  "color": "#92929C",
+                  "_i": 257,
+                  "_c": "Text"
+                },
+                "padding": {
+                  "left": 9,
+                  "top": 6,
+                  "right": 9,
+                  "bottom": 6
+                },
+                "border_radius": 8,
+                "on_click": true,
+                "_i": 258,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container"
+              },
+              {
+                "content": {
+                  "value": "@tr:set.tab.general",
+                  "size": 13,
+                  "weight": "normal",
+                  "color": "#92929C",
+                  "_i": 259,
+                  "_c": "Text"
+                },
+                "padding": {
+                  "left": 9,
+                  "top": 6,
+                  "right": 9,
+                  "bottom": 6
+                },
+                "border_radius": 8,
+                "on_click": true,
+                "_i": 260,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container"
+              }
+            ],
+            "_internals": {
+              "host_expanded": true
+            },
+            "_c": "Row"
+          },
+          {
+            "tooltip": "@tr:common.collapse",
+            "icon": 69563,
+            "icon_color": "#92929C",
+            "icon_size": 18,
+            "on_click": true,
+            "_i": 262,
+            "_c": "IconButton"
+          }
+        ],
+        "_internals": {
+          "host_expanded": true
+        },
+        "_c": "Row"
+      },
+      {
+        "expand": true,
+        "scroll": "auto",
+        "spacing": 6,
+        "_i": 238,
+        "controls": [
+          {
+            "content": {
+              "value": "PLAYLIST",
+              "size": 11,
+              "weight": "w600",
+              "color": "#92929C",
+              "_i": 263,
+              "_c": "Text"
+            },
+            "padding": {
+              "top": 10,
+              "bottom": 2
+            },
+            "_i": 264,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 269,
+              "controls": [
+                {
+                  "_i": 267,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.scanFolder.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 266,
+                      "_c": "Text"
+                    },
+                    {
+                      "scale": 0.8,
+                      "on_change": true,
+                      "_i": 265,
+                      "_c": "Switch"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.scanFolder.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 268,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 270,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 275,
+              "controls": [
+                {
+                  "_i": 273,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.resume.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 272,
+                      "_c": "Text"
+                    },
+                    {
+                      "scale": 0.8,
+                      "value": true,
+                      "on_change": true,
+                      "_i": 271,
+                      "_c": "Switch"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.resume.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 274,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 276,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 281,
+              "controls": [
+                {
+                  "_i": 279,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.resumePlaylist.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 278,
+                      "_c": "Text"
+                    },
+                    {
+                      "scale": 0.8,
+                      "value": true,
+                      "on_change": true,
+                      "_i": 277,
+                      "_c": "Switch"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.resumePlaylist.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 280,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 282,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "value": "AUDIO",
+              "size": 11,
+              "weight": "w600",
+              "color": "#92929C",
+              "_i": 283,
+              "_c": "Text"
+            },
+            "padding": {
+              "top": 10,
+              "bottom": 2
+            },
+            "_i": 284,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 289,
+              "controls": [
+                {
+                  "_i": 287,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.keepPitch.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 286,
+                      "_c": "Text"
+                    },
+                    {
+                      "scale": 0.8,
+                      "value": true,
+                      "on_change": true,
+                      "_i": 285,
+                      "_c": "Switch"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.keepPitch.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 288,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 290,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 295,
+              "controls": [
+                {
+                  "_i": 293,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.passthrough.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 292,
+                      "_c": "Text"
+                    },
+                    {
+                      "scale": 0.8,
+                      "on_change": true,
+                      "_i": 291,
+                      "_c": "Switch"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "Send compressed audio as a bitstream to an external receiver or DAC, which decodes it instead of Lunoir.\nRequires hardware that supports the format. Unsupported formats will play no sound.",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 294,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 296,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 312,
+              "controls": [
+                {
+                  "_i": 310,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.audioLang.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 309,
+                      "_c": "Text"
+                    },
+                    {
+                      "width": 172,
+                      "value": "",
+                      "on_select": true,
+                      "text_size": 12,
+                      "dense": true,
+                      "_i": 308,
+                      "_c": "Dropdown",
+                      "options": [
+                        {
+                          "key": "",
+                          "text": "@tr:common.default",
+                          "_i": 297,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "eng",
+                          "text": "@tr:opt.lang.english",
+                          "_i": 298,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "chi,zho",
+                          "text": "@tr:opt.lang.chinese",
+                          "_i": 299,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "jpn",
+                          "text": "@tr:opt.lang.japanese",
+                          "_i": 300,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "kor",
+                          "text": "@tr:opt.lang.korean",
+                          "_i": 301,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "fre",
+                          "text": "@tr:opt.lang.french",
+                          "_i": 302,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "ger",
+                          "text": "@tr:opt.lang.german",
+                          "_i": 303,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "spa",
+                          "text": "@tr:opt.lang.spanish",
+                          "_i": 304,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "ita",
+                          "text": "@tr:opt.lang.italian",
+                          "_i": 305,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "rus",
+                          "text": "@tr:opt.lang.russian",
+                          "_i": 306,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "por",
+                          "text": "@tr:opt.lang.portuguese",
+                          "_i": 307,
+                          "_c": "DropdownOption"
+                        }
+                      ]
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "Select this language automatically when a file is opened.\nDefault uses the file's own track order.",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 311,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 313,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "value": "VIDEO",
+              "size": 11,
+              "weight": "w600",
+              "color": "#92929C",
+              "_i": 314,
+              "_c": "Text"
+            },
+            "padding": {
+              "top": 10,
+              "bottom": 2
+            },
+            "_i": 315,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 323,
+              "controls": [
+                {
+                  "_i": 321,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.hwdec.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 320,
+                      "_c": "Text"
+                    },
+                    {
+                      "width": 172,
+                      "value": "auto",
+                      "on_select": true,
+                      "text_size": 12,
+                      "dense": true,
+                      "_i": 319,
+                      "_c": "Dropdown",
+                      "options": [
+                        {
+                          "key": "auto",
+                          "text": "@tr:opt.hwdec.auto",
+                          "_i": 316,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "auto-copy",
+                          "text": "@tr:opt.hwdec.autoCopy",
+                          "_i": 317,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "no",
+                          "text": "@tr:opt.hwdec.off",
+                          "_i": 318,
+                          "_c": "DropdownOption"
+                        }
+                      ]
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.hwdec.auto",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 322,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 324,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 332,
+              "controls": [
+                {
+                  "_i": 330,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.deint.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 329,
+                      "_c": "Text"
+                    },
+                    {
+                      "width": 172,
+                      "value": "no",
+                      "on_select": true,
+                      "text_size": 12,
+                      "dense": true,
+                      "_i": 328,
+                      "_c": "Dropdown",
+                      "options": [
+                        {
+                          "key": "auto",
+                          "text": "@tr:opt.deint.auto",
+                          "_i": 325,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "yes",
+                          "text": "@tr:opt.deint.on",
+                          "_i": 326,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "no",
+                          "text": "@tr:opt.deblock.off",
+                          "_i": 327,
+                          "_c": "DropdownOption"
+                        }
+                      ]
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "Broadcast video (1080i, 576i — most live TV, DVDs and TV recordings) stores each frame as two half-height fields captured a fraction of a second apart. On a modern display they show as comb-like teeth along moving edges.\nAuto only steps in when the source says it’s interlaced, so progressive video is left untouched. Force it on if a channel is mislabelled.",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 331,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 333,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 343,
+              "controls": [
+                {
+                  "_i": 341,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.quality.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 340,
+                      "_c": "Text"
+                    },
+                    {
+                      "width": 172,
+                      "value": "best",
+                      "on_select": true,
+                      "text_size": 12,
+                      "dense": true,
+                      "_i": 339,
+                      "_c": "Dropdown",
+                      "options": [
+                        {
+                          "key": "best",
+                          "text": "@tr:opt.quality.best",
+                          "_i": 334,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "2160",
+                          "text": "2160p (4K)",
+                          "_i": 335,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "1080",
+                          "text": "1080p",
+                          "_i": 336,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "720",
+                          "text": "720p",
+                          "_i": 337,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "480",
+                          "text": "480p",
+                          "_i": 338,
+                          "_c": "DropdownOption"
+                        }
+                      ]
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.quality.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 342,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 344,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 349,
+              "controls": [
+                {
+                  "_i": 347,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.cookies.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 346,
+                      "_c": "Text"
+                    },
+                    {
+                      "scale": 0.8,
+                      "value": true,
+                      "on_change": true,
+                      "_i": 345,
+                      "_c": "Switch"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.cookies.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 348,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 350,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 359,
+              "controls": [
+                {
+                  "_i": 358,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.cookiesFrom.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 357,
+                      "_c": "Text"
+                    },
+                    {
+                      "width": 172,
+                      "value": "edge",
+                      "on_select": true,
+                      "text_size": 12,
+                      "dense": true,
+                      "_i": 356,
+                      "_c": "Dropdown",
+                      "options": [
+                        {
+                          "key": "edge",
+                          "text": "Edge",
+                          "_i": 351,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "chrome",
+                          "text": "Chrome",
+                          "_i": 352,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "firefox",
+                          "text": "Firefox",
+                          "_i": 353,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "brave",
+                          "text": "Brave",
+                          "_i": 354,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "opera",
+                          "text": "Opera",
+                          "_i": 355,
+                          "_c": "DropdownOption"
+                        }
+                      ]
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 360,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          }
+        ],
+        "_internals": {
+          "host_expanded": true
+        },
+        "_c": "Column"
+      }
+    ],
+    "events": {
+      "254:click": {
+        "name": "settings_tab",
+        "args": [
+          "playback"
+        ]
+      },
+      "256:click": {
+        "name": "settings_tab",
+        "args": [
+          "subs"
+        ]
+      },
+      "258:click": {
+        "name": "settings_tab",
+        "args": [
+          "interface"
+        ]
+      },
+      "260:click": {
+        "name": "settings_tab",
+        "args": [
+          "general"
+        ]
+      },
+      "262:click": {
+        "name": "toggle_panel",
+        "args": [
+          ""
+        ]
+      },
+      "265:change": {
+        "name": "setting_bool",
+        "args": [
+          "scanFolderIntoPlaylist",
+          0
+        ]
+      },
+      "271:change": {
+        "name": "setting_bool",
+        "args": [
+          "resumePlayback",
+          0
+        ]
+      },
+      "277:change": {
+        "name": "setting_bool",
+        "args": [
+          "resumePlaylistItem",
+          0
+        ]
+      },
+      "285:change": {
+        "name": "setting_bool",
+        "args": [
+          "keepPitch",
+          0
+        ]
+      },
+      "291:change": {
+        "name": "setting_bool",
+        "args": [
+          "audioPassthrough",
+          0
+        ]
+      },
+      "308:select": {
+        "name": "setting_select",
+        "args": [
+          "audioLang",
+          0
+        ]
+      },
+      "319:select": {
+        "name": "setting_select",
+        "args": [
+          "hwdec",
+          0
+        ]
+      },
+      "328:select": {
+        "name": "setting_select",
+        "args": [
+          "deinterlace",
+          0
+        ]
+      },
+      "339:select": {
+        "name": "setting_select",
+        "args": [
+          "streamQuality",
+          0
+        ]
+      },
+      "345:change": {
+        "name": "setting_bool",
+        "args": [
+          "useCookies",
+          0
+        ]
+      },
+      "356:select": {
+        "name": "setting_select",
+        "args": [
+          "cookiesBrowser",
+          0
+        ]
+      }
+    },
+    "bindings": {
+      "265": {
+        "key": "scanFolderIntoPlaylist",
+        "kind": "bool",
+        "digits": 0
+      },
+      "271": {
+        "key": "resumePlayback",
+        "kind": "bool",
+        "digits": 0
+      },
+      "277": {
+        "key": "resumePlaylistItem",
+        "kind": "bool",
+        "digits": 0
+      },
+      "285": {
+        "key": "keepPitch",
+        "kind": "bool",
+        "digits": 0
+      },
+      "291": {
+        "key": "audioPassthrough",
+        "kind": "bool",
+        "digits": 0
+      },
+      "308": {
+        "key": "audioLang",
+        "kind": "select",
+        "digits": 0
+      },
+      "319": {
+        "key": "hwdec",
+        "kind": "select",
+        "digits": 0
+      },
+      "328": {
+        "key": "deinterlace",
+        "kind": "select",
+        "digits": 0
+      },
+      "339": {
+        "key": "streamQuality",
+        "kind": "select",
+        "digits": 0
+      },
+      "345": {
+        "key": "useCookies",
+        "kind": "bool",
+        "digits": 0
+      },
+      "356": {
+        "key": "cookiesBrowser",
+        "kind": "select",
+        "digits": 0
+      }
+    }
+  },
+  "subs": {
+    "controls": [
+      {
+        "spacing": 4,
+        "_i": 421,
+        "controls": [
+          {
+            "expand": true,
+            "spacing": 2,
+            "wrap": true,
+            "run_spacing": 2,
+            "_i": 445,
+            "controls": [
+              {
+                "content": {
+                  "value": "@tr:set.tab.playback",
+                  "size": 13,
+                  "weight": "normal",
+                  "color": "#92929C",
+                  "_i": 437,
+                  "_c": "Text"
+                },
+                "padding": {
+                  "left": 9,
+                  "top": 6,
+                  "right": 9,
+                  "bottom": 6
+                },
+                "border_radius": 8,
+                "on_click": true,
+                "_i": 438,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container"
+              },
+              {
+                "content": {
+                  "value": "@tr:set.sec.subtitles",
+                  "size": 13,
+                  "weight": "w600",
+                  "color": "#EEEEF0",
+                  "_i": 439,
+                  "_c": "Text"
+                },
+                "padding": {
+                  "left": 9,
+                  "top": 6,
+                  "right": 9,
+                  "bottom": 6
+                },
+                "bgcolor": "#3A3A42",
+                "border_radius": 8,
+                "on_click": true,
+                "_i": 440,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container"
+              },
+              {
+                "content": {
+                  "value": "@tr:set.sec.interface",
+                  "size": 13,
+                  "weight": "normal",
+                  "color": "#92929C",
+                  "_i": 441,
+                  "_c": "Text"
+                },
+                "padding": {
+                  "left": 9,
+                  "top": 6,
+                  "right": 9,
+                  "bottom": 6
+                },
+                "border_radius": 8,
+                "on_click": true,
+                "_i": 442,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container"
+              },
+              {
+                "content": {
+                  "value": "@tr:set.tab.general",
+                  "size": 13,
+                  "weight": "normal",
+                  "color": "#92929C",
+                  "_i": 443,
+                  "_c": "Text"
+                },
+                "padding": {
+                  "left": 9,
+                  "top": 6,
+                  "right": 9,
+                  "bottom": 6
+                },
+                "border_radius": 8,
+                "on_click": true,
+                "_i": 444,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container"
+              }
+            ],
+            "_internals": {
+              "host_expanded": true
+            },
+            "_c": "Row"
+          },
+          {
+            "tooltip": "@tr:common.collapse",
+            "icon": 69563,
+            "icon_color": "#92929C",
+            "icon_size": 18,
+            "on_click": true,
+            "_i": 446,
+            "_c": "IconButton"
+          }
+        ],
+        "_internals": {
+          "host_expanded": true
+        },
+        "_c": "Row"
+      },
+      {
+        "expand": true,
+        "scroll": "auto",
+        "spacing": 6,
+        "_i": 422,
+        "controls": [
+          {
+            "content": {
+              "value": "SUBTITLES",
+              "size": 11,
+              "weight": "w600",
+              "color": "#92929C",
+              "_i": 447,
+              "_c": "Text"
+            },
+            "padding": {
+              "top": 10,
+              "bottom": 2
+            },
+            "_i": 448,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 464,
+              "controls": [
+                {
+                  "_i": 462,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.subLang.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 461,
+                      "_c": "Text"
+                    },
+                    {
+                      "width": 172,
+                      "value": "",
+                      "on_select": true,
+                      "text_size": 12,
+                      "dense": true,
+                      "_i": 460,
+                      "_c": "Dropdown",
+                      "options": [
+                        {
+                          "key": "",
+                          "text": "@tr:common.default",
+                          "_i": 449,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "eng",
+                          "text": "@tr:opt.lang.english",
+                          "_i": 450,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "chi,zho",
+                          "text": "@tr:opt.lang.chinese",
+                          "_i": 451,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "jpn",
+                          "text": "@tr:opt.lang.japanese",
+                          "_i": 452,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "kor",
+                          "text": "@tr:opt.lang.korean",
+                          "_i": 453,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "fre",
+                          "text": "@tr:opt.lang.french",
+                          "_i": 454,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "ger",
+                          "text": "@tr:opt.lang.german",
+                          "_i": 455,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "spa",
+                          "text": "@tr:opt.lang.spanish",
+                          "_i": 456,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "ita",
+                          "text": "@tr:opt.lang.italian",
+                          "_i": 457,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "rus",
+                          "text": "@tr:opt.lang.russian",
+                          "_i": 458,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "por",
+                          "text": "@tr:opt.lang.portuguese",
+                          "_i": 459,
+                          "_c": "DropdownOption"
+                        }
+                      ]
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "Select this language automatically when a file is opened.\nDefault uses the file's own track order.",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 463,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 465,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 469,
+              "controls": [
+                {
+                  "_i": 468,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.subsDefault.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 467,
+                      "_c": "Text"
+                    },
+                    {
+                      "scale": 0.8,
+                      "value": true,
+                      "on_change": true,
+                      "_i": 466,
+                      "_c": "Switch"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 470,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 475,
+              "controls": [
+                {
+                  "_i": 473,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.autoLoadSubs.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 472,
+                      "_c": "Text"
+                    },
+                    {
+                      "scale": 0.8,
+                      "value": true,
+                      "on_change": true,
+                      "_i": 471,
+                      "_c": "Switch"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.autoLoadSubs.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 474,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 476,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 492,
+              "controls": [
+                {
+                  "_i": 490,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.subCodepage.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 489,
+                      "_c": "Text"
+                    },
+                    {
+                      "width": 172,
+                      "value": "auto",
+                      "on_select": true,
+                      "text_size": 12,
+                      "dense": true,
+                      "_i": 488,
+                      "_c": "Dropdown",
+                      "options": [
+                        {
+                          "key": "auto",
+                          "text": "@tr:opt.subCodepage.auto",
+                          "_i": 477,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "utf-8",
+                          "text": "UTF-8",
+                          "_i": 478,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "cp1251",
+                          "text": "Windows-1251",
+                          "_i": 479,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "cp1252",
+                          "text": "Windows-1252",
+                          "_i": 480,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "cp1250",
+                          "text": "Windows-1250",
+                          "_i": 481,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "koi8-r",
+                          "text": "KOI8-R",
+                          "_i": 482,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "cp866",
+                          "text": "CP866",
+                          "_i": 483,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "gb18030",
+                          "text": "GB18030",
+                          "_i": 484,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "big5",
+                          "text": "Big5",
+                          "_i": 485,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "shift_jis",
+                          "text": "Shift_JIS",
+                          "_i": 486,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "cp949",
+                          "text": "Windows-949",
+                          "_i": 487,
+                          "_c": "DropdownOption"
+                        }
+                      ]
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "For external text subtitles; UTF-8 is always recognized first.\nReopen the video to apply changes to loaded subtitles.",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 491,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 493,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 500,
+              "controls": [
+                {
+                  "_i": 498,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.hdrSubPeak.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 497,
+                      "_c": "Text"
+                    },
+                    {
+                      "spacing": 0,
+                      "tight": true,
+                      "_i": 496,
+                      "controls": [
+                        {
+                          "width": 150,
+                          "value": 120.0,
+                          "min": 50,
+                          "max": 400,
+                          "divisions": 70,
+                          "on_change": true,
+                          "on_change_end": true,
+                          "_i": 495,
+                          "_c": "Slider"
+                        },
+                        {
+                          "width": 40,
+                          "value": "120",
+                          "text_align": "right",
+                          "size": 12,
+                          "color": "#92929C",
+                          "_i": 494,
+                          "_c": "Text"
+                        }
+                      ],
+                      "_internals": {
+                        "host_expanded": true
+                      },
+                      "_c": "Row"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "Peak luminance, in nits, for text subtitles (SRT/ASS) over HDR video. Lower values are dimmer.\nImage subtitles (PGS, as used on Blu-ray) are not supported by mpv. SDR playback is unaffected.",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 499,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 501,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "value": "SUBTITLE APPEARANCE",
+              "size": 11,
+              "weight": "w600",
+              "color": "#92929C",
+              "_i": 502,
+              "_c": "Text"
+            },
+            "padding": {
+              "top": 10,
+              "bottom": 2
+            },
+            "_i": 503,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 516,
+              "controls": [
+                {
+                  "_i": 514,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.subFont.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 513,
+                      "_c": "Text"
+                    },
+                    {
+                      "width": 190,
+                      "value": "Microsoft YaHei",
+                      "on_select": true,
+                      "text_size": 12,
+                      "dense": true,
+                      "_i": 512,
+                      "_c": "Dropdown",
+                      "options": [
+                        {
+                          "key": "Microsoft YaHei",
+                          "text": "微软雅黑 (Microsoft YaHei)",
+                          "_i": 504,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "Microsoft JhengHei",
+                          "text": "微軟正黑體 (JhengHei)",
+                          "_i": 505,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "SimHei",
+                          "text": "黑体 (SimHei)",
+                          "_i": 506,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "Source Han Sans SC",
+                          "text": "思源黑体 (Source Han Sans)",
+                          "_i": 507,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "Noto Sans CJK SC",
+                          "text": "Noto Sans CJK",
+                          "_i": 508,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "Yu Gothic UI",
+                          "text": "游ゴシック (Yu Gothic)",
+                          "_i": 509,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "Segoe UI",
+                          "text": "Segoe UI",
+                          "_i": 510,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "sans-serif",
+                          "text": "@tr:opt.subFont.system",
+                          "_i": 511,
+                          "_c": "DropdownOption"
+                        }
+                      ]
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.subFont.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 515,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 517,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 523,
+              "controls": [
+                {
+                  "_i": 522,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.subSize.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 521,
+                      "_c": "Text"
+                    },
+                    {
+                      "spacing": 0,
+                      "tight": true,
+                      "_i": 520,
+                      "controls": [
+                        {
+                          "width": 150,
+                          "value": 38.0,
+                          "min": 20,
+                          "max": 80,
+                          "divisions": 60,
+                          "on_change": true,
+                          "on_change_end": true,
+                          "_i": 519,
+                          "_c": "Slider"
+                        },
+                        {
+                          "width": 40,
+                          "value": "38",
+                          "text_align": "right",
+                          "size": 12,
+                          "color": "#92929C",
+                          "_i": 518,
+                          "_c": "Text"
+                        }
+                      ],
+                      "_internals": {
+                        "host_expanded": true
+                      },
+                      "_c": "Row"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 524,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 531,
+              "controls": [
+                {
+                  "_i": 529,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.subSpacing.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 528,
+                      "_c": "Text"
+                    },
+                    {
+                      "spacing": 0,
+                      "tight": true,
+                      "_i": 527,
+                      "controls": [
+                        {
+                          "width": 150,
+                          "value": 0.0,
+                          "min": -3,
+                          "max": 10,
+                          "divisions": 26,
+                          "on_change": true,
+                          "on_change_end": true,
+                          "_i": 526,
+                          "_c": "Slider"
+                        },
+                        {
+                          "width": 40,
+                          "value": "0.0",
+                          "text_align": "right",
+                          "size": 12,
+                          "color": "#92929C",
+                          "_i": 525,
+                          "_c": "Text"
+                        }
+                      ],
+                      "_internals": {
+                        "host_expanded": true
+                      },
+                      "_c": "Row"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.subSpacing.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 530,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 532,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 539,
+              "controls": [
+                {
+                  "_i": 537,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.subOutline.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 536,
+                      "_c": "Text"
+                    },
+                    {
+                      "spacing": 0,
+                      "tight": true,
+                      "_i": 535,
+                      "controls": [
+                        {
+                          "width": 150,
+                          "value": 3.0,
+                          "max": 10,
+                          "divisions": 20,
+                          "on_change": true,
+                          "on_change_end": true,
+                          "_i": 534,
+                          "_c": "Slider"
+                        },
+                        {
+                          "width": 40,
+                          "value": "3.0",
+                          "text_align": "right",
+                          "size": 12,
+                          "color": "#92929C",
+                          "_i": 533,
+                          "_c": "Text"
+                        }
+                      ],
+                      "_internals": {
+                        "host_expanded": true
+                      },
+                      "_c": "Row"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.subOutline.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 538,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 540,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 544,
+              "controls": [
+                {
+                  "_i": 543,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.subBold.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 542,
+                      "_c": "Text"
+                    },
+                    {
+                      "scale": 0.8,
+                      "on_change": true,
+                      "_i": 541,
+                      "_c": "Switch"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 545,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 552,
+              "controls": [
+                {
+                  "_i": 550,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.subMargin.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 549,
+                      "_c": "Text"
+                    },
+                    {
+                      "spacing": 0,
+                      "tight": true,
+                      "_i": 548,
+                      "controls": [
+                        {
+                          "width": 150,
+                          "value": 34.0,
+                          "max": 200,
+                          "divisions": 100,
+                          "on_change": true,
+                          "on_change_end": true,
+                          "_i": 547,
+                          "_c": "Slider"
+                        },
+                        {
+                          "width": 40,
+                          "value": "34",
+                          "text_align": "right",
+                          "size": 12,
+                          "color": "#92929C",
+                          "_i": 546,
+                          "_c": "Text"
+                        }
+                      ],
+                      "_internals": {
+                        "host_expanded": true
+                      },
+                      "_c": "Row"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.subMargin.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 551,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 553,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          }
+        ],
+        "_internals": {
+          "host_expanded": true
+        },
+        "_c": "Column"
+      }
+    ],
+    "events": {
+      "438:click": {
+        "name": "settings_tab",
+        "args": [
+          "playback"
+        ]
+      },
+      "440:click": {
+        "name": "settings_tab",
+        "args": [
+          "subs"
+        ]
+      },
+      "442:click": {
+        "name": "settings_tab",
+        "args": [
+          "interface"
+        ]
+      },
+      "444:click": {
+        "name": "settings_tab",
+        "args": [
+          "general"
+        ]
+      },
+      "446:click": {
+        "name": "toggle_panel",
+        "args": [
+          ""
+        ]
+      },
+      "460:select": {
+        "name": "setting_select",
+        "args": [
+          "subLang",
+          0
+        ]
+      },
+      "466:change": {
+        "name": "setting_bool",
+        "args": [
+          "subsDefaultOn",
+          0
+        ]
+      },
+      "471:change": {
+        "name": "setting_bool",
+        "args": [
+          "autoLoadSubs",
+          0
+        ]
+      },
+      "488:select": {
+        "name": "setting_select",
+        "args": [
+          "subCodepage",
+          0
+        ]
+      },
+      "495:change": {
+        "name": "setting_moving",
+        "args": [
+          0,
+          "@control:494"
+        ]
+      },
+      "495:change_end": {
+        "name": "setting_number",
+        "args": [
+          "subHdrPeak",
+          0
+        ]
+      },
+      "512:select": {
+        "name": "setting_select",
+        "args": [
+          "subFont",
+          0
+        ]
+      },
+      "519:change": {
+        "name": "setting_moving",
+        "args": [
+          0,
+          "@control:518"
+        ]
+      },
+      "519:change_end": {
+        "name": "setting_number",
+        "args": [
+          "subFontSize",
+          0
+        ]
+      },
+      "526:change": {
+        "name": "setting_moving",
+        "args": [
+          1,
+          "@control:525"
+        ]
+      },
+      "526:change_end": {
+        "name": "setting_number",
+        "args": [
+          "subSpacing",
+          1
+        ]
+      },
+      "534:change": {
+        "name": "setting_moving",
+        "args": [
+          1,
+          "@control:533"
+        ]
+      },
+      "534:change_end": {
+        "name": "setting_number",
+        "args": [
+          "subOutline",
+          1
+        ]
+      },
+      "541:change": {
+        "name": "setting_bool",
+        "args": [
+          "subBold",
+          0
+        ]
+      },
+      "547:change": {
+        "name": "setting_moving",
+        "args": [
+          0,
+          "@control:546"
+        ]
+      },
+      "547:change_end": {
+        "name": "setting_number",
+        "args": [
+          "subMarginY",
+          0
+        ]
+      }
+    },
+    "bindings": {
+      "460": {
+        "key": "subLang",
+        "kind": "select",
+        "digits": 0
+      },
+      "466": {
+        "key": "subsDefaultOn",
+        "kind": "bool",
+        "digits": 0
+      },
+      "471": {
+        "key": "autoLoadSubs",
+        "kind": "bool",
+        "digits": 0
+      },
+      "488": {
+        "key": "subCodepage",
+        "kind": "select",
+        "digits": 0
+      },
+      "495": {
+        "key": "subHdrPeak",
+        "kind": "number",
+        "digits": 0,
+        "reading": 494
+      },
+      "512": {
+        "key": "subFont",
+        "kind": "select",
+        "digits": 0
+      },
+      "519": {
+        "key": "subFontSize",
+        "kind": "number",
+        "digits": 0,
+        "reading": 518
+      },
+      "526": {
+        "key": "subSpacing",
+        "kind": "number",
+        "digits": 1,
+        "reading": 525
+      },
+      "534": {
+        "key": "subOutline",
+        "kind": "number",
+        "digits": 1,
+        "reading": 533
+      },
+      "541": {
+        "key": "subBold",
+        "kind": "bool",
+        "digits": 0
+      },
+      "547": {
+        "key": "subMarginY",
+        "kind": "number",
+        "digits": 0,
+        "reading": 546
+      }
+    }
+  },
+  "interface": {
+    "controls": [
+      {
+        "spacing": 4,
+        "_i": 614,
+        "controls": [
+          {
+            "expand": true,
+            "spacing": 2,
+            "wrap": true,
+            "run_spacing": 2,
+            "_i": 638,
+            "controls": [
+              {
+                "content": {
+                  "value": "@tr:set.tab.playback",
+                  "size": 13,
+                  "weight": "normal",
+                  "color": "#92929C",
+                  "_i": 630,
+                  "_c": "Text"
+                },
+                "padding": {
+                  "left": 9,
+                  "top": 6,
+                  "right": 9,
+                  "bottom": 6
+                },
+                "border_radius": 8,
+                "on_click": true,
+                "_i": 631,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container"
+              },
+              {
+                "content": {
+                  "value": "@tr:set.sec.subtitles",
+                  "size": 13,
+                  "weight": "normal",
+                  "color": "#92929C",
+                  "_i": 632,
+                  "_c": "Text"
+                },
+                "padding": {
+                  "left": 9,
+                  "top": 6,
+                  "right": 9,
+                  "bottom": 6
+                },
+                "border_radius": 8,
+                "on_click": true,
+                "_i": 633,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container"
+              },
+              {
+                "content": {
+                  "value": "@tr:set.sec.interface",
+                  "size": 13,
+                  "weight": "w600",
+                  "color": "#EEEEF0",
+                  "_i": 634,
+                  "_c": "Text"
+                },
+                "padding": {
+                  "left": 9,
+                  "top": 6,
+                  "right": 9,
+                  "bottom": 6
+                },
+                "bgcolor": "#3A3A42",
+                "border_radius": 8,
+                "on_click": true,
+                "_i": 635,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container"
+              },
+              {
+                "content": {
+                  "value": "@tr:set.tab.general",
+                  "size": 13,
+                  "weight": "normal",
+                  "color": "#92929C",
+                  "_i": 636,
+                  "_c": "Text"
+                },
+                "padding": {
+                  "left": 9,
+                  "top": 6,
+                  "right": 9,
+                  "bottom": 6
+                },
+                "border_radius": 8,
+                "on_click": true,
+                "_i": 637,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container"
+              }
+            ],
+            "_internals": {
+              "host_expanded": true
+            },
+            "_c": "Row"
+          },
+          {
+            "tooltip": "@tr:common.collapse",
+            "icon": 69563,
+            "icon_color": "#92929C",
+            "icon_size": 18,
+            "on_click": true,
+            "_i": 639,
+            "_c": "IconButton"
+          }
+        ],
+        "_internals": {
+          "host_expanded": true
+        },
+        "_c": "Row"
+      },
+      {
+        "expand": true,
+        "scroll": "auto",
+        "spacing": 6,
+        "_i": 615,
+        "controls": [
+          {
+            "content": {
+              "value": "INTERFACE",
+              "size": 11,
+              "weight": "w600",
+              "color": "#92929C",
+              "_i": 640,
+              "_c": "Text"
+            },
+            "padding": {
+              "top": 10,
+              "bottom": 2
+            },
+            "_i": 641,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 656,
+              "controls": [
+                {
+                  "_i": 654,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.uiLang.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 653,
+                      "_c": "Text"
+                    },
+                    {
+                      "width": 172,
+                      "value": "system",
+                      "on_select": true,
+                      "text_size": 12,
+                      "dense": true,
+                      "_i": 652,
+                      "_c": "Dropdown",
+                      "options": [
+                        {
+                          "key": "system",
+                          "text": "@tr:opt.uiLang.system",
+                          "_i": 642,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "en",
+                          "text": "@tr:opt.lang.english",
+                          "_i": 643,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "zh-CN",
+                          "text": "简体中文",
+                          "_i": 644,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "fr",
+                          "text": "Français",
+                          "_i": 645,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "de",
+                          "text": "Deutsch",
+                          "_i": 646,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "es",
+                          "text": "Español",
+                          "_i": 647,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "pt",
+                          "text": "Português",
+                          "_i": 648,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "ru",
+                          "text": "Русский",
+                          "_i": 649,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "ja",
+                          "text": "日本語",
+                          "_i": 650,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "ko",
+                          "text": "한국어",
+                          "_i": 651,
+                          "_c": "DropdownOption"
+                        }
+                      ]
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.uiLang.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 655,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 657,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "value": "CONTROLS",
+              "size": 11,
+              "weight": "w600",
+              "color": "#92929C",
+              "_i": 658,
+              "_c": "Text"
+            },
+            "padding": {
+              "top": 10,
+              "bottom": 2
+            },
+            "_i": 659,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 666,
+              "controls": [
+                {
+                  "_i": 664,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.oscStyle.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 663,
+                      "_c": "Text"
+                    },
+                    {
+                      "width": 172,
+                      "value": "floating",
+                      "on_select": true,
+                      "text_size": 12,
+                      "dense": true,
+                      "_i": 662,
+                      "_c": "Dropdown",
+                      "options": [
+                        {
+                          "key": "floating",
+                          "text": "@tr:opt.oscStyle.floating",
+                          "_i": 660,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "docked",
+                          "text": "@tr:opt.oscStyle.docked",
+                          "_i": 661,
+                          "_c": "DropdownOption"
+                        }
+                      ]
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.oscStyle.desc1\n@tr:set.oscStyle.desc2",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 665,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 667,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 674,
+              "controls": [
+                {
+                  "_i": 672,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.oscDelay.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 671,
+                      "_c": "Text"
+                    },
+                    {
+                      "spacing": 0,
+                      "tight": true,
+                      "_i": 670,
+                      "controls": [
+                        {
+                          "width": 150,
+                          "value": 5.0,
+                          "min": 1,
+                          "max": 15,
+                          "divisions": 14,
+                          "on_change": true,
+                          "on_change_end": true,
+                          "_i": 669,
+                          "_c": "Slider"
+                        },
+                        {
+                          "width": 40,
+                          "value": "5",
+                          "text_align": "right",
+                          "size": 12,
+                          "color": "#92929C",
+                          "_i": 668,
+                          "_c": "Text"
+                        }
+                      ],
+                      "_internals": {
+                        "host_expanded": true
+                      },
+                      "_c": "Row"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.oscDelay.desc1\n@tr:set.oscDelay.desc2",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 673,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 675,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 680,
+              "controls": [
+                {
+                  "_i": 678,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.seekPreview.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 677,
+                      "_c": "Text"
+                    },
+                    {
+                      "scale": 0.8,
+                      "value": true,
+                      "on_change": true,
+                      "_i": 676,
+                      "_c": "Switch"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.seekPreview.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 679,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 681,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "value": "WINDOW",
+              "size": 11,
+              "weight": "w600",
+              "color": "#92929C",
+              "_i": 682,
+              "_c": "Text"
+            },
+            "padding": {
+              "top": 10,
+              "bottom": 2
+            },
+            "_i": 683,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 687,
+              "controls": [
+                {
+                  "_i": 686,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.rememberWindow.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 685,
+                      "_c": "Text"
+                    },
+                    {
+                      "scale": 0.8,
+                      "value": true,
+                      "on_change": true,
+                      "_i": 684,
+                      "_c": "Switch"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 688,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 692,
+              "controls": [
+                {
+                  "_i": 691,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.rememberVolume.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 690,
+                      "_c": "Text"
+                    },
+                    {
+                      "scale": 0.8,
+                      "value": true,
+                      "on_change": true,
+                      "_i": 689,
+                      "_c": "Switch"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 693,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          }
+        ],
+        "_internals": {
+          "host_expanded": true
+        },
+        "_c": "Column"
+      }
+    ],
+    "events": {
+      "631:click": {
+        "name": "settings_tab",
+        "args": [
+          "playback"
+        ]
+      },
+      "633:click": {
+        "name": "settings_tab",
+        "args": [
+          "subs"
+        ]
+      },
+      "635:click": {
+        "name": "settings_tab",
+        "args": [
+          "interface"
+        ]
+      },
+      "637:click": {
+        "name": "settings_tab",
+        "args": [
+          "general"
+        ]
+      },
+      "639:click": {
+        "name": "toggle_panel",
+        "args": [
+          ""
+        ]
+      },
+      "652:select": {
+        "name": "setting_select",
+        "args": [
+          "uiLanguage",
+          0
+        ]
+      },
+      "662:select": {
+        "name": "setting_select",
+        "args": [
+          "oscStyle",
+          0
+        ]
+      },
+      "669:change": {
+        "name": "setting_moving",
+        "args": [
+          0,
+          "@control:668"
+        ]
+      },
+      "669:change_end": {
+        "name": "setting_number",
+        "args": [
+          "oscHideDelay",
+          0
+        ]
+      },
+      "676:change": {
+        "name": "setting_bool",
+        "args": [
+          "seekPreview",
+          0
+        ]
+      },
+      "684:change": {
+        "name": "setting_bool",
+        "args": [
+          "rememberWindow",
+          0
+        ]
+      },
+      "689:change": {
+        "name": "setting_bool",
+        "args": [
+          "rememberVolume",
+          0
+        ]
+      }
+    },
+    "bindings": {
+      "652": {
+        "key": "uiLanguage",
+        "kind": "select",
+        "digits": 0
+      },
+      "662": {
+        "key": "oscStyle",
+        "kind": "select",
+        "digits": 0
+      },
+      "669": {
+        "key": "oscHideDelay",
+        "kind": "number",
+        "digits": 0,
+        "reading": 668
+      },
+      "676": {
+        "key": "seekPreview",
+        "kind": "bool",
+        "digits": 0
+      },
+      "684": {
+        "key": "rememberWindow",
+        "kind": "bool",
+        "digits": 0
+      },
+      "689": {
+        "key": "rememberVolume",
+        "kind": "bool",
+        "digits": 0
+      }
+    }
+  },
+  "general": {
+    "controls": [
+      {
+        "spacing": 4,
+        "_i": 754,
+        "controls": [
+          {
+            "expand": true,
+            "spacing": 2,
+            "wrap": true,
+            "run_spacing": 2,
+            "_i": 778,
+            "controls": [
+              {
+                "content": {
+                  "value": "@tr:set.tab.playback",
+                  "size": 13,
+                  "weight": "normal",
+                  "color": "#92929C",
+                  "_i": 770,
+                  "_c": "Text"
+                },
+                "padding": {
+                  "left": 9,
+                  "top": 6,
+                  "right": 9,
+                  "bottom": 6
+                },
+                "border_radius": 8,
+                "on_click": true,
+                "_i": 771,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container"
+              },
+              {
+                "content": {
+                  "value": "@tr:set.sec.subtitles",
+                  "size": 13,
+                  "weight": "normal",
+                  "color": "#92929C",
+                  "_i": 772,
+                  "_c": "Text"
+                },
+                "padding": {
+                  "left": 9,
+                  "top": 6,
+                  "right": 9,
+                  "bottom": 6
+                },
+                "border_radius": 8,
+                "on_click": true,
+                "_i": 773,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container"
+              },
+              {
+                "content": {
+                  "value": "@tr:set.sec.interface",
+                  "size": 13,
+                  "weight": "normal",
+                  "color": "#92929C",
+                  "_i": 774,
+                  "_c": "Text"
+                },
+                "padding": {
+                  "left": 9,
+                  "top": 6,
+                  "right": 9,
+                  "bottom": 6
+                },
+                "border_radius": 8,
+                "on_click": true,
+                "_i": 775,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container"
+              },
+              {
+                "content": {
+                  "value": "@tr:set.tab.general",
+                  "size": 13,
+                  "weight": "w600",
+                  "color": "#EEEEF0",
+                  "_i": 776,
+                  "_c": "Text"
+                },
+                "padding": {
+                  "left": 9,
+                  "top": 6,
+                  "right": 9,
+                  "bottom": 6
+                },
+                "bgcolor": "#3A3A42",
+                "border_radius": 8,
+                "on_click": true,
+                "_i": 777,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container"
+              }
+            ],
+            "_internals": {
+              "host_expanded": true
+            },
+            "_c": "Row"
+          },
+          {
+            "tooltip": "@tr:common.collapse",
+            "icon": 69563,
+            "icon_color": "#92929C",
+            "icon_size": 18,
+            "on_click": true,
+            "_i": 779,
+            "_c": "IconButton"
+          }
+        ],
+        "_internals": {
+          "host_expanded": true
+        },
+        "_c": "Row"
+      },
+      {
+        "expand": true,
+        "scroll": "auto",
+        "spacing": 6,
+        "_i": 755,
+        "controls": [
+          {
+            "content": {
+              "value": "SCREENSHOTS",
+              "size": 11,
+              "weight": "w600",
+              "color": "#92929C",
+              "_i": 780,
+              "_c": "Text"
+            },
+            "padding": {
+              "top": 10,
+              "bottom": 2
+            },
+            "_i": 781,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 786,
+              "controls": [
+                {
+                  "_i": 784,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.shotSubs.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 783,
+                      "_c": "Text"
+                    },
+                    {
+                      "scale": 0.8,
+                      "value": true,
+                      "on_change": true,
+                      "_i": 782,
+                      "_c": "Switch"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.shotSubs.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 785,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 787,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 794,
+              "controls": [
+                {
+                  "_i": 792,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.shotFormat.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 791,
+                      "_c": "Text"
+                    },
+                    {
+                      "width": 172,
+                      "value": "png",
+                      "on_select": true,
+                      "text_size": 12,
+                      "dense": true,
+                      "_i": 790,
+                      "_c": "Dropdown",
+                      "options": [
+                        {
+                          "key": "png",
+                          "text": "@tr:opt.shot.png",
+                          "_i": 788,
+                          "_c": "DropdownOption"
+                        },
+                        {
+                          "key": "jpg",
+                          "text": "@tr:opt.shot.jpg",
+                          "_i": 789,
+                          "_c": "DropdownOption"
+                        }
+                      ]
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@tr:set.shotFormat.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 793,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 795,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 800,
+              "controls": [
+                {
+                  "_i": 798,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.shotDir.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 797,
+                      "_c": "Text"
+                    },
+                    {
+                      "content": "@tr:set.shotDir.browse",
+                      "on_click": true,
+                      "_i": 796,
+                      "_c": "TextButton"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "@shot_directory\n@tr:set.shotDir.desc",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 799,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 801,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "value": "ABOUT",
+              "size": 11,
+              "weight": "w600",
+              "color": "#92929C",
+              "_i": 802,
+              "_c": "Text"
+            },
+            "padding": {
+              "top": 10,
+              "bottom": 2
+            },
+            "_i": 803,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "content": {
+              "spacing": 2,
+              "_i": 808,
+              "controls": [
+                {
+                  "_i": 806,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "value": "@tr:set.ytdl.label",
+                      "size": 13,
+                      "color": "#EEEEF0",
+                      "_i": 805,
+                      "_c": "Text"
+                    },
+                    {
+                      "content": "@tr:set.ytdl.update",
+                      "on_click": true,
+                      "_i": 804,
+                      "_c": "TextButton"
+                    }
+                  ],
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row"
+                },
+                {
+                  "value": "Online video is resolved by yt-dlp, which Lunoir refreshes on its own every couple of weeks.\nUpdate it by hand if a site stops playing — they change often, and an older yt-dlp is the usual reason.",
+                  "size": 11,
+                  "color": "#92929C",
+                  "_i": 807,
+                  "_c": "Text"
+                }
+              ],
+              "_internals": {
+                "host_expanded": true
+              },
+              "_c": "Column"
+            },
+            "padding": {
+              "right": 8,
+              "bottom": 6
+            },
+            "_i": 809,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "value": "@app_about",
+            "size": 11,
+            "selectable": true,
+            "color": "#92929C",
+            "_i": 810,
+            "_c": "Text"
+          }
+        ],
+        "_internals": {
+          "host_expanded": true
+        },
+        "_c": "Column"
+      }
+    ],
+    "events": {
+      "771:click": {
+        "name": "settings_tab",
+        "args": [
+          "playback"
+        ]
+      },
+      "773:click": {
+        "name": "settings_tab",
+        "args": [
+          "subs"
+        ]
+      },
+      "775:click": {
+        "name": "settings_tab",
+        "args": [
+          "interface"
+        ]
+      },
+      "777:click": {
+        "name": "settings_tab",
+        "args": [
+          "general"
+        ]
+      },
+      "779:click": {
+        "name": "toggle_panel",
+        "args": [
+          ""
+        ]
+      },
+      "782:change": {
+        "name": "setting_bool",
+        "args": [
+          "screenshotSubs",
+          0
+        ]
+      },
+      "790:select": {
+        "name": "setting_select",
+        "args": [
+          "screenshotFormat",
+          0
+        ]
+      },
+      "796:click": {
+        "name": "browse_screenshot_dir",
+        "args": []
+      },
+      "804:click": {
+        "name": "refresh_ytdl",
+        "args": []
+      }
+    },
+    "bindings": {
+      "782": {
+        "key": "screenshotSubs",
+        "kind": "bool",
+        "digits": 0
+      },
+      "790": {
+        "key": "screenshotFormat",
+        "kind": "select",
+        "digits": 0
+      }
+    }
+  },
+  "url_home": {
+    "controls": [
+      {
+        "alignment": "center",
+        "horizontal_alignment": "center",
+        "spacing": 12,
+        "tight": true,
+        "_i": 896,
+        "controls": [
+          {
+            "width": 104,
+            "height": 104,
+            "src": "logo.png",
+            "_i": 893,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height"
+              ]
+            },
+            "_c": "Image"
+          },
+          {
+            "width": 232,
+            "height": 68,
+            "src": "Lunoir.png",
+            "color": "#EEEEF0",
+            "_i": 894,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height"
+              ]
+            },
+            "_c": "Image"
+          },
+          {
+            "height": 18,
+            "_i": 895,
+            "_internals": {
+              "skip_properties": [
+                "width",
+                "height",
+                "margin"
+              ]
+            },
+            "_c": "Container"
+          },
+          {
+            "alignment": "center",
+            "tight": true,
+            "_i": 890,
+            "controls": [
+              {
+                "width": 420,
+                "border_radius": 12,
+                "dense": true,
+                "hint_text": "@tr:empty.urlPlaceholder",
+                "autofocus": true,
+                "on_submit": true,
+                "_i": 887,
+                "_c": "TextField"
+              },
+              {
+                "tooltip": "@tr:empty.urlPlay",
+                "icon": 71358,
+                "on_click": true,
+                "_i": 889,
+                "_c": "IconButton"
+              }
+            ],
+            "_internals": {
+              "host_expanded": true
+            },
+            "_c": "Row"
+          },
+          {
+            "content": "@tr:url.advanced",
+            "on_click": true,
+            "_i": 891,
+            "_c": "TextButton"
+          },
+          {
+            "visible": false,
+            "width": 420,
+            "label": "@tr:url.userAgent",
+            "dense": true,
+            "_i": 888,
+            "_c": "TextField"
+          },
+          {
+            "value": "@tr:empty.urlBack",
+            "size": 11,
+            "color": "#6E6E79",
+            "_i": 892,
+            "_c": "Text"
+          }
+        ],
+        "_internals": {
+          "host_expanded": true
+        },
+        "_c": "Column"
+      }
+    ],
+    "events": {
+      "887:submit": {
+        "name": "submit_url",
+        "args": []
+      },
+      "889:click": {
+        "name": "submit_url",
+        "args": []
+      },
+      "891:click": {
+        "name": "advanced",
+        "args": []
+      }
+    },
+    "bindings": {},
+    "ids": {
+      "url_field": 887,
+      "ua_field": 888
+    }
+  }
+}

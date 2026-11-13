@@ -10,7 +10,76 @@ API needs a sign-in). `libmpv-2.dll` is 94 MiB: under GitHub's 100 MB limit, abo
 50 MB warning. Exporting what git would add and running `build-flet.ps1` and the Python
 tests there was checked 2026-11-07.
 
-State as of 2026-10-25:
+## Current application: manual V port (2026-11-13)
+
+Testing restriction from the user (2026-11-13): do not run any further local test
+video files; focus on yt-dlp. Do not run `tools/test-native.ps1`,
+`tools/test-native-ui.py`, or the complete V app test suite while this restriction
+applies: they create/play local media. Use targeted non-media checks and the supplied
+online URL instead.
+
+The user requested moving the existing Python application to V. `v_lunoir/` now
+builds the player, including its Flet socket transport, UI state, settings/profile,
+media queues, library, playback, previews, single instance, Windows drops and yt-dlp.
+`Lunoir-V.exe` is the controller itself. It imports `mpv` directly; it does not launch
+Python or `vmpv-host`. Flet/Flutter still draws Lunoir's interface. Keep that interface
+and its assets; do not create a separate Win32 player.
+
+```powershell
+./build-native.ps1                     # V/GCC; downloads pinned Flet runtime if missing
+./build-native.ps1 -SkipDependencies
+./Lunoir-V.exe
+./package-native.ps1 [-Zip] [-SkipBuild] # dist/Lunoir-V, no Python
+./tools/test-native.ps1                # local V tests, including real libmpv/COM/HTTP
+python tools/test-native-ui.py -v       # optional development-only executable integration tests
+```
+
+`build-flet.ps1` and `package-flet.ps1` are compatibility wrappers for the native
+scripts. CI uses the native scripts with pinned V 0.5.2/GCC 15.2, without Python setup.
+Preserve the user's rule: CI builds/packages/releases; run tests locally, never add
+test gates between a push and the zip.
+
+Implementation notes:
+
+- The app version is `0.2.0`, sourced from root `VERSION`, embedded by
+  `v_lunoir/version.v`, shown in General/About and the startup log, and included in
+  the portable package. Bump `VERSION` for app releases (`v0.2.0` for this version).
+  Root and `mpv/v.mod` describe the binding, which remains version `0.1.0`.
+- `flet.v`/`msgpack.v` implement the Flet 1.0.5 desktop protocol. The embedded
+  `shell.json`, `ui_templates.json` and `icons.json` retain the Python app's control
+  layouts and event bindings; they are data, not Python execution. Localized text
+  resolves through the existing TypeScript translation files. Never translate `_c`
+  control class names or other schema fields.
+- `backend.v` drives the existing `mpv/` binding directly. All mutable app state and
+  mpv event processing stay on the main loop; download/socket workers communicate
+  through channels. The main and preview mpv handles run inside the V process.
+- YouTube 403 recovery: extraction can succeed while mpv's direct audio request is
+  refused. `media.v` records HTTP failures and `ytdl.v` retries a YouTube load once
+  with HLS video/audio, preserving the selected height cap. Each new queue item
+  resets this fallback and restores normal format selection. Warnings/errors now
+  go to `native.log`; `LUNOIR_V_MPV_LOG=<path>` enables detailed mpv/ytdl diagnostics.
+- `platform_win.h`, `drop_win.h` and their V wrappers replace pywin32/ctypes. Flet
+  joins a kill-on-close Windows job. Single-instance names and profile formats remain
+  compatible with the Python implementation. Native video regions preserve the
+  floating OSC/panel airspace strategy described in the historical notes below.
+- Use `json_decode`/`json_encode` in `json.v`; the pinned generic JSON2 decoder expects
+  sum-type tags that ordinary profile/mpv JSON does not contain. `object`/`list_value`
+  must reject scalar variants; JSON2's coercing `.as_map()`/`.as_array()` are unsuitable.
+- V tests require `-subsystem console` for visible diagnostics; the test script sets
+  the DLL search path. Avoid implicit conversion of unary `!x` into `json2.Any`: the
+  pinned compiler generates invalid C for it. Assign the bool to a local first.
+- Test hooks: `LUNOIR_V_TEST_SCRIPT` runs timed app actions on scratch profiles;
+  `LUNOIR_V_EXIT_AFTER` limits a test run. F9 captures Flutter rendering with
+  `LUNOIR_V_SNAPSHOTS`; timed captures additionally require
+  `LUNOIR_V_SNAPSHOT_INTERVAL` (ms). Native video is absent from Flutter captures;
+  use mpv's screenshot command to verify decoded frames.
+- `flet_lunoir/` and `host/` remain reference implementations. Python is needed only
+  to run their development tools/tests. The old py2v output under
+  `v_lunoir/generated/` and its conversion reports are archival, unbuildable output;
+  they are neither imported nor packaged. `convert-python.ps1` touches that archive,
+  not the manual V sources. See `v_lunoir/README.md` for validation and limitations.
+
+## Historical state as of 2026-10-25
 
 - The `mpv/` module binds the whole go-mpv API and is tested against our
   `libmpv-2.dll` with GCC and TCC. Copied alone into another project, it builds and runs.
@@ -26,14 +95,16 @@ State as of 2026-10-25:
   write failure; the earlier unsynchronised flag has been fixed.
 - Not packaged: the module is a folder in this repo, not installable with `v install`.
 
-The user rejected a separate native Win32 player and explicitly chose Flet/Python
-for Lunoir's interface with the V mpv backend. Do not recreate that separate
-`player/` application. Preserve Lunoir's visual identity while continuing the Flet
-port. The behavior/design reference is the original Electron source, Lunoir 0.9.4 at
+The user rejected a separate native Win32 player and chose Flet for Lunoir's interface.
+The later V migration retains Flet and replaces its Python controller. Do not recreate
+the separate `player/` application. The behavior/design reference is Lunoir 0.9.4 at
 https://github.com/zhbj420/Lunoir. Notes below that name `main/mpv.ts`, `Library.tsx` and
 so on mean that repo. Only what the app reads at run time is kept in `lunoir/`.
 
-## Flet Lunoir port (2026-10-25)
+## Historical Python Flet port (2026-10-25)
+
+The commands, packaging and Python architecture in this section describe the previous
+implementation. The current build/package entry points above produce the native V app.
 
 ```powershell
 ./build-flet.ps1                       # venv, dependencies, Flet desktop runtime, V backend + launcher

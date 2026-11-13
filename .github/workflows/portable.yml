@@ -35,14 +35,9 @@ jobs:
       contents: write # only the release steps write
     defaults:
       run:
-        shell: powershell # build-flet.ps1 and package-flet.ps1 are tested on 5.1
+        shell: powershell # native build/package scripts support 5.1
     steps:
       - uses: actions/checkout@v7
-
-      - uses: actions/setup-python@v7
-        with:
-          python-version: '3.11'
-          architecture: x64
 
       - name: Install V
         run: |
@@ -75,15 +70,14 @@ jobs:
         run: |
           v version
           gcc --version
-          python --version
 
       - name: Build
-        run: ./build-flet.ps1
+        run: ./build-native.ps1
 
       - name: Package
         run: |
           $ErrorActionPreference = 'Stop'
-          ./package-flet.ps1 -SkipBuild -Zip
+          ./package-native.ps1 -SkipBuild -Zip
           $version = if ($env:GITHUB_REF_TYPE -eq 'tag') { "-$env:GITHUB_REF_NAME" } else { '' }
           $name = "Lunoir-V$version-windows-x86_64.zip"
           Move-Item -LiteralPath dist/Lunoir-V.zip -Destination "dist/$name"

@@ -1,0 +1,1152 @@
+{
+  "page": {
+    "title": "Lunoir",
+    "theme_mode": "dark",
+    "theme": {
+      "color_scheme_seed": "#A8A8AE",
+      "font_family": "Segoe UI",
+      "page_transitions": {}
+    },
+    "on_keyboard_event": true,
+    "on_resize": true,
+    "on_disconnect": true,
+    "window": {
+      "width": 1120,
+      "height": 760,
+      "min_width": 900,
+      "min_height": 560,
+      "title_bar_hidden": true,
+      "prevent_close": true,
+      "on_event": true,
+      "_c": "Window",
+      "_i": 2
+    },
+    "views": [
+      {
+        "bgcolor": "#17171C",
+        "spacing": 0,
+        "padding": 0,
+        "_internals": {
+          "host_expanded": true
+        },
+        "_c": "View",
+        "controls": [
+          {
+            "expand": true,
+            "_internals": {
+              "host_positioned": true
+            },
+            "_c": "Stack",
+            "_i": 78,
+            "controls": [
+              {
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "bgcolor": "#17171C",
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container",
+                "_i": 77
+              },
+              {
+                "left": 0,
+                "top": 40,
+                "right": 0,
+                "bottom": 0,
+                "content": {
+                  "content": {
+                    "alignment": "center",
+                    "horizontal_alignment": "center",
+                    "spacing": 12,
+                    "tight": true,
+                    "_internals": {
+                      "host_expanded": true
+                    },
+                    "_c": "Column",
+                    "_i": 28,
+                    "controls": [
+                      {
+                        "width": 104,
+                        "height": 104,
+                        "src": "logo.png",
+                        "_internals": {
+                          "skip_properties": [
+                            "width",
+                            "height"
+                          ]
+                        },
+                        "_c": "Image",
+                        "_i": 25
+                      },
+                      {
+                        "width": 232,
+                        "height": 68,
+                        "src": "Lunoir.png",
+                        "color": "#EEEEF0",
+                        "_internals": {
+                          "skip_properties": [
+                            "width",
+                            "height"
+                          ]
+                        },
+                        "_c": "Image",
+                        "_i": 26
+                      },
+                      {
+                        "height": 18,
+                        "_internals": {
+                          "skip_properties": [
+                            "width",
+                            "height",
+                            "margin"
+                          ]
+                        },
+                        "_c": "Container",
+                        "_i": 27
+                      },
+                      {
+                        "content": {
+                          "width": 180,
+                          "height": 44,
+                          "content": {
+                            "spacing": 8,
+                            "tight": true,
+                            "_internals": {
+                              "host_expanded": true
+                            },
+                            "_c": "Row",
+                            "_i": 21,
+                            "controls": [
+                              {
+                                "icon": 68352,
+                                "color": "#EEEEF0",
+                                "size": 17,
+                                "_c": "Icon",
+                                "_i": 19
+                              },
+                              {
+                                "value": "@tr:empty.openFile",
+                                "size": 14,
+                                "color": "#EEEEF0",
+                                "_c": "Text",
+                                "_i": 20
+                              }
+                            ]
+                          },
+                          "alignment": {
+                            "x": 0.0,
+                            "y": 0.0
+                          },
+                          "bgcolor": "#38383E",
+                          "border_radius": 12,
+                          "_internals": {
+                            "skip_properties": [
+                              "width",
+                              "height",
+                              "margin"
+                            ]
+                          },
+                          "_c": "Container",
+                          "_i": 22
+                        },
+                        "mouse_cursor": "click",
+                        "on_tap": true,
+                        "on_double_tap": true,
+                        "_c": "GestureDetector",
+                        "_i": 23
+                      },
+                      {
+                        "value": "@tr:empty.hint",
+                        "size": 11,
+                        "color": "#6E6E79",
+                        "_c": "Text",
+                        "_i": 24
+                      }
+                    ]
+                  },
+                  "alignment": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "gradient": {
+                    "colors": [
+                      "#33333B",
+                      "#17171D"
+                    ],
+                    "radius": 1.15,
+                    "_type": "radial",
+                    "center": {
+                      "x": 0,
+                      "y": -0.25
+                    }
+                  },
+                  "_internals": {
+                    "skip_properties": [
+                      "width",
+                      "height",
+                      "margin"
+                    ]
+                  },
+                  "_c": "Container",
+                  "_i": 29
+                },
+                "on_secondary_tap": true,
+                "_c": "GestureDetector",
+                "_i": 30
+              },
+              {
+                "visible": false,
+                "content": {
+                  "bgcolor": "#000000",
+                  "_internals": {
+                    "skip_properties": [
+                      "width",
+                      "height",
+                      "margin"
+                    ]
+                  },
+                  "_c": "Container",
+                  "_i": 35
+                },
+                "drag_interval": 16,
+                "hover_interval": 100,
+                "on_tap": true,
+                "on_secondary_tap": true,
+                "on_double_tap": true,
+                "on_pan_start": true,
+                "on_pan_update": true,
+                "on_pan_end": true,
+                "on_hover": true,
+                "on_scroll": true,
+                "left": 0,
+                "top": 40,
+                "width": 1120.0,
+                "height": 720.0,
+                "_c": "GestureDetector",
+                "_i": 36
+              },
+              {
+                "height": 40,
+                "left": 0,
+                "top": 0,
+                "right": 0,
+                "content": {
+                  "spacing": 0,
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row",
+                  "_i": 17,
+                  "controls": [
+                    {
+                      "expand": true,
+                      "content": {
+                        "content": {
+                          "_internals": {
+                            "host_expanded": true
+                          },
+                          "_c": "Row",
+                          "_i": 11,
+                          "controls": [
+                            {
+                              "width": 22,
+                              "height": 22,
+                              "src": "logo.png",
+                              "_internals": {
+                                "skip_properties": [
+                                  "width",
+                                  "height"
+                                ]
+                              },
+                              "_c": "Image",
+                              "_i": 10
+                            },
+                            {
+                              "value": "Lunoir",
+                              "size": 12,
+                              "max_lines": 1,
+                              "overflow": "ellipsis",
+                              "color": "#92929C",
+                              "_c": "Text",
+                              "_i": 9
+                            }
+                          ]
+                        },
+                        "padding": {
+                          "left": 16
+                        },
+                        "_internals": {
+                          "skip_properties": [
+                            "width",
+                            "height",
+                            "margin"
+                          ]
+                        },
+                        "_c": "Container",
+                        "_i": 12
+                      },
+                      "_c": "WindowDragArea",
+                      "_i": 13
+                    },
+                    {
+                      "tooltip": "@tr:win.minimize",
+                      "width": 44,
+                      "icon": 71741,
+                      "icon_color": "#92929C",
+                      "icon_size": 21,
+                      "on_click": true,
+                      "_c": "IconButton",
+                      "_i": 14
+                    },
+                    {
+                      "tooltip": "@tr:win.maximize",
+                      "width": 44,
+                      "icon": 67279,
+                      "icon_color": "#92929C",
+                      "icon_size": 21,
+                      "on_click": true,
+                      "_c": "IconButton",
+                      "_i": 15
+                    },
+                    {
+                      "tooltip": "@tr:win.close",
+                      "width": 44,
+                      "icon": 66945,
+                      "icon_color": "#92929C",
+                      "icon_size": 21,
+                      "on_click": true,
+                      "_c": "IconButton",
+                      "_i": 16
+                    }
+                  ]
+                },
+                "bgcolor": "#1E1E23",
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container",
+                "_i": 18
+              },
+              {
+                "right": 24,
+                "bottom": 20,
+                "content": {
+                  "spacing": 8,
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row",
+                  "_i": 33,
+                  "controls": [
+                    {
+                      "tooltip": "@tr:osc.library",
+                      "icon": 72882,
+                      "icon_color": "#92929C",
+                      "icon_size": 21,
+                      "on_click": true,
+                      "_c": "IconButton",
+                      "_i": 31
+                    },
+                    {
+                      "tooltip": "@tr:common.settings",
+                      "icon": 72298,
+                      "icon_color": "#92929C",
+                      "icon_size": 21,
+                      "on_click": true,
+                      "_c": "IconButton",
+                      "_i": 32
+                    }
+                  ]
+                },
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container",
+                "_i": 34
+              },
+              {
+                "visible": false,
+                "height": 118,
+                "bottom": 20,
+                "content": {
+                  "spacing": 3,
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Column",
+                  "_i": 61,
+                  "controls": [
+                    {
+                      "height": 18,
+                      "_internals": {
+                        "host_expanded": true
+                      },
+                      "_c": "Row",
+                      "_i": 49,
+                      "controls": [
+                        {
+                          "tooltip": "@tr:osc.timeFormat",
+                          "content": {
+                            "value": "00:00",
+                            "size": 11,
+                            "color": "#92929C",
+                            "_c": "Text",
+                            "_i": 37
+                          },
+                          "mouse_cursor": "click",
+                          "on_tap": true,
+                          "_c": "GestureDetector",
+                          "_i": 46
+                        },
+                        {
+                          "expand": true,
+                          "_internals": {
+                            "skip_properties": [
+                              "width",
+                              "height",
+                              "margin"
+                            ]
+                          },
+                          "_c": "Container",
+                          "_i": 47
+                        },
+                        {
+                          "size": 11,
+                          "max_lines": 1,
+                          "overflow": "ellipsis",
+                          "color": "#92929C",
+                          "_c": "Text",
+                          "_i": 39
+                        },
+                        {
+                          "width": 8,
+                          "_internals": {
+                            "skip_properties": [
+                              "width",
+                              "height",
+                              "margin"
+                            ]
+                          },
+                          "_c": "Container",
+                          "_i": 48
+                        },
+                        {
+                          "value": "00:00",
+                          "size": 11,
+                          "color": "#92929C",
+                          "_c": "Text",
+                          "_i": 38
+                        }
+                      ]
+                    },
+                    {
+                      "expand": true,
+                      "height": 22,
+                      "value": 0,
+                      "active_color": "#BDBDC4",
+                      "inactive_color": "#48484F",
+                      "thumb_color": "#EEEEF0",
+                      "padding": {},
+                      "on_change_start": true,
+                      "on_change_end": true,
+                      "disabled": true,
+                      "_c": "Slider",
+                      "_i": 40
+                    },
+                    {
+                      "height": 48,
+                      "spacing": 0,
+                      "_internals": {
+                        "host_expanded": true
+                      },
+                      "_c": "Row",
+                      "_i": 60,
+                      "controls": [
+                        {
+                          "tooltip": "@tr:panel.shuffle.off",
+                          "icon": 72428,
+                          "icon_color": "#92929C",
+                          "icon_size": 21,
+                          "on_click": true,
+                          "_c": "IconButton",
+                          "_i": 45
+                        },
+                        {
+                          "tooltip": "@tr:menu.previous",
+                          "icon": 72584,
+                          "icon_color": "#92929C",
+                          "icon_size": 21,
+                          "on_click": true,
+                          "_c": "IconButton",
+                          "_i": 50
+                        },
+                        {
+                          "tooltip": "@tr:osc.back|n=10",
+                          "icon": 71804,
+                          "icon_color": "#92929C",
+                          "icon_size": 21,
+                          "on_click": true,
+                          "_c": "IconButton",
+                          "_i": 51
+                        },
+                        {
+                          "tooltip": "@tr:osc.pause",
+                          "width": 48,
+                          "height": 48,
+                          "icon": 71007,
+                          "icon_color": "#222227",
+                          "icon_size": 34,
+                          "on_click": true,
+                          "_internals": {
+                            "style": {
+                              "bgcolor": "#DEDEE3"
+                            }
+                          },
+                          "_c": "IconButton",
+                          "_i": 41
+                        },
+                        {
+                          "tooltip": "@tr:osc.forward|n=10",
+                          "icon": 68787,
+                          "icon_color": "#92929C",
+                          "icon_size": 21,
+                          "on_click": true,
+                          "_c": "IconButton",
+                          "_i": 52
+                        },
+                        {
+                          "tooltip": "@tr:menu.next",
+                          "icon": 72580,
+                          "icon_color": "#92929C",
+                          "icon_size": 21,
+                          "on_click": true,
+                          "_c": "IconButton",
+                          "_i": 53
+                        },
+                        {
+                          "tooltip": "@tr:panel.repeat.off",
+                          "icon": 71799,
+                          "icon_color": "#92929C",
+                          "icon_size": 21,
+                          "on_click": true,
+                          "_c": "IconButton",
+                          "_i": 44
+                        },
+                        {
+                          "expand": true,
+                          "_internals": {
+                            "skip_properties": [
+                              "width",
+                              "height",
+                              "margin"
+                            ]
+                          },
+                          "_c": "Container",
+                          "_i": 54
+                        },
+                        {
+                          "tooltip": "@tr:osc.mute",
+                          "icon": 74025,
+                          "icon_color": "#92929C",
+                          "icon_size": 21,
+                          "on_click": true,
+                          "_c": "IconButton",
+                          "_i": 42
+                        },
+                        {
+                          "width": 104,
+                          "height": 28,
+                          "value": 100.0,
+                          "max": 150,
+                          "active_color": "#BDBDC4",
+                          "inactive_color": "#48484F",
+                          "padding": {
+                            "left": 8,
+                            "right": 8
+                          },
+                          "on_change": true,
+                          "on_change_start": true,
+                          "on_change_end": true,
+                          "_c": "Slider",
+                          "_i": 43
+                        },
+                        {
+                          "tooltip": "@tr:osc.panel",
+                          "icon": 71595,
+                          "icon_color": "#92929C",
+                          "icon_size": 21,
+                          "on_click": true,
+                          "_c": "IconButton",
+                          "_i": 55
+                        },
+                        {
+                          "tooltip": "@tr:osc.library",
+                          "icon": 72882,
+                          "icon_color": "#92929C",
+                          "icon_size": 21,
+                          "on_click": true,
+                          "_c": "IconButton",
+                          "_i": 56
+                        },
+                        {
+                          "tooltip": "@tr:common.settings",
+                          "icon": 72298,
+                          "icon_color": "#92929C",
+                          "icon_size": 21,
+                          "on_click": true,
+                          "_c": "IconButton",
+                          "_i": 57
+                        },
+                        {
+                          "icon": 70364,
+                          "icon_color": "#92929C",
+                          "icon_size": 21,
+                          "on_click": true,
+                          "_c": "IconButton",
+                          "_i": 58
+                        },
+                        {
+                          "tooltip": "@tr:menu.fullscreen",
+                          "icon": 68851,
+                          "icon_color": "#92929C",
+                          "icon_size": 21,
+                          "on_click": true,
+                          "_c": "IconButton",
+                          "_i": 59
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "padding": {
+                  "left": 22,
+                  "top": 12,
+                  "right": 22,
+                  "bottom": 12
+                },
+                "bgcolor": "#242429",
+                "border": {
+                  "bottom": {
+                    "color": "#393940"
+                  },
+                  "top": {
+                    "color": "#393940"
+                  },
+                  "left": {
+                    "color": "#393940"
+                  },
+                  "right": {
+                    "color": "#393940"
+                  }
+                },
+                "border_radius": 24,
+                "on_hover": true,
+                "width": 840,
+                "left": 140.0,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container",
+                "_i": 62
+              },
+              {
+                "visible": false,
+                "width": 320,
+                "right": 16,
+                "content": {
+                  "spacing": 0,
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Column",
+                  "_i": 66,
+                  "controls": [
+                    {
+                      "spacing": 4,
+                      "_internals": {
+                        "host_expanded": true
+                      },
+                      "_c": "Row",
+                      "_i": 63
+                    },
+                    {
+                      "color": "#393940",
+                      "height": 12,
+                      "_c": "Divider",
+                      "_i": 65
+                    },
+                    {
+                      "expand": true,
+                      "scroll": "auto",
+                      "spacing": 6,
+                      "_internals": {
+                        "host_expanded": true
+                      },
+                      "_c": "Column",
+                      "_i": 64
+                    }
+                  ]
+                },
+                "padding": {
+                  "left": 18,
+                  "top": 12,
+                  "right": 10,
+                  "bottom": 14
+                },
+                "bgcolor": "#242429",
+                "border": {
+                  "bottom": {
+                    "color": "#393940"
+                  },
+                  "top": {
+                    "color": "#393940"
+                  },
+                  "left": {
+                    "color": "#393940"
+                  },
+                  "right": {
+                    "color": "#393940"
+                  }
+                },
+                "border_radius": 18,
+                "on_hover": true,
+                "top": 56,
+                "bottom": 16,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container",
+                "_i": 67
+              },
+              {
+                "visible": false,
+                "height": 44,
+                "content": {
+                  "text_align": "center",
+                  "size": 13,
+                  "color": "#EEEEF0",
+                  "_c": "Text",
+                  "_i": 68
+                },
+                "padding": {
+                  "left": 16,
+                  "right": 16
+                },
+                "alignment": {
+                  "x": 0.0,
+                  "y": 0.0
+                },
+                "bgcolor": "#2E2E35",
+                "border": {
+                  "bottom": {
+                    "color": "#393940"
+                  },
+                  "top": {
+                    "color": "#393940"
+                  },
+                  "left": {
+                    "color": "#393940"
+                  },
+                  "right": {
+                    "color": "#393940"
+                  }
+                },
+                "border_radius": 12,
+                "width": 460,
+                "left": 330.0,
+                "top": 56,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container",
+                "_i": 69
+              },
+              {
+                "visible": false,
+                "width": 218,
+                "height": 36,
+                "content": {
+                  "tight": true,
+                  "_internals": {
+                    "host_expanded": true
+                  },
+                  "_c": "Row",
+                  "_i": 75,
+                  "controls": [
+                    {
+                      "icon": 74025,
+                      "color": "#EEEEF0",
+                      "size": 20,
+                      "_c": "Icon",
+                      "_i": 70
+                    },
+                    {
+                      "width": 120,
+                      "height": 4,
+                      "content": {
+                        "width": 0,
+                        "height": 4,
+                        "bgcolor": "#D9D9DA",
+                        "border_radius": 2,
+                        "_internals": {
+                          "skip_properties": [
+                            "width",
+                            "height",
+                            "margin"
+                          ]
+                        },
+                        "_c": "Container",
+                        "_i": 71
+                      },
+                      "alignment": {
+                        "x": -1.0,
+                        "y": 0.0
+                      },
+                      "bgcolor": "#434346",
+                      "border_radius": 2,
+                      "_internals": {
+                        "skip_properties": [
+                          "width",
+                          "height",
+                          "margin"
+                        ]
+                      },
+                      "_c": "Container",
+                      "_i": 72
+                    },
+                    {
+                      "width": 30,
+                      "content": {
+                        "size": 13,
+                        "weight": "w500",
+                        "color": "#EEEEF0",
+                        "_c": "Text",
+                        "_i": 73
+                      },
+                      "alignment": {
+                        "x": 1.0,
+                        "y": 0.0
+                      },
+                      "_internals": {
+                        "skip_properties": [
+                          "width",
+                          "height",
+                          "margin"
+                        ]
+                      },
+                      "_c": "Container",
+                      "_i": 74
+                    }
+                  ]
+                },
+                "padding": {
+                  "left": 14,
+                  "right": 14
+                },
+                "bgcolor": "#1A1A1E",
+                "border_radius": 8,
+                "left": 451.0,
+                "top": 636.0,
+                "_internals": {
+                  "skip_properties": [
+                    "width",
+                    "height",
+                    "margin"
+                  ]
+                },
+                "_c": "Container",
+                "_i": 76
+              }
+            ]
+          }
+        ],
+        "_i": 3,
+        "route": "/"
+      }
+    ],
+    "media": {
+      "padding": {},
+      "view_padding": {},
+      "view_insets": {},
+      "device_pixel_ratio": 0,
+      "orientation": "portrait",
+      "always_use_24_hour_format": false
+    },
+    "_i": 1,
+    "_overlay": {
+      "_internals": {
+        "host_positioned": true
+      },
+      "_c": "Overlay",
+      "_i": 4
+    },
+    "_dialogs": {
+      "_c": "Dialogs",
+      "_i": 5
+    },
+    "_services": {
+      "_internals": {
+        "uid": "lunoir-services"
+      },
+      "_c": "ServiceRegistry",
+      "_i": 7
+    },
+    "_c": "Page"
+  },
+  "ids": {
+    "page": 1,
+    "title": 9,
+    "header": 18,
+    "home": 30,
+    "home_entries": 34,
+    "video_area": 36,
+    "time_text": 37,
+    "duration_text": 38,
+    "badges": 39,
+    "seek": 40,
+    "play_button": 41,
+    "mute_button": 42,
+    "volume": 43,
+    "repeat_button": 44,
+    "shuffle_button": 45,
+    "transport": 62,
+    "panel_header": 63,
+    "panel_body": 64,
+    "panel": 67,
+    "toast_text": 68,
+    "toast": 69,
+    "osd_icon": 70,
+    "osd_fill": 71,
+    "osd_bar": 72,
+    "osd_text": 73,
+    "osd_number": 74,
+    "osd_row": 75,
+    "osd": 76,
+    "backdrop": 77,
+    "root": 78,
+    "window": 2
+  },
+  "events": {
+    "1:resize": {
+      "name": "resize",
+      "args": []
+    },
+    "1:keyboard_event": {
+      "name": "keyboard",
+      "args": []
+    },
+    "1:disconnect": {
+      "name": "disconnect",
+      "args": []
+    },
+    "30:secondary_tap": {
+      "name": "toggle_url_mode",
+      "args": []
+    },
+    "23:tap": {
+      "name": "open_files",
+      "args": []
+    },
+    "23:double_tap": {
+      "name": "open_folder",
+      "args": []
+    },
+    "36:tap": {
+      "name": "video_tap",
+      "args": []
+    },
+    "36:secondary_tap": {
+      "name": "video_secondary",
+      "args": []
+    },
+    "36:double_tap": {
+      "name": "video_double_tap",
+      "args": []
+    },
+    "36:pan_start": {
+      "name": "pan_start",
+      "args": []
+    },
+    "36:pan_update": {
+      "name": "pan_update",
+      "args": []
+    },
+    "36:pan_end": {
+      "name": "pan_end",
+      "args": []
+    },
+    "36:hover": {
+      "name": "pointer_moved",
+      "args": []
+    },
+    "36:scroll": {
+      "name": "video_wheel",
+      "args": []
+    },
+    "14:click": {
+      "name": "minimize",
+      "args": []
+    },
+    "15:click": {
+      "name": "maximize",
+      "args": []
+    },
+    "16:click": {
+      "name": "shutdown",
+      "args": []
+    },
+    "31:click": {
+      "name": "toggle_panel",
+      "args": [
+        "library"
+      ]
+    },
+    "32:click": {
+      "name": "toggle_panel",
+      "args": [
+        "settings"
+      ]
+    },
+    "62:hover": {
+      "name": "pointer_moved",
+      "args": []
+    },
+    "46:tap": {
+      "name": "cycle_time_format",
+      "args": []
+    },
+    "40:change_start": {
+      "name": "seek_start",
+      "args": []
+    },
+    "40:change_end": {
+      "name": "seek_end",
+      "args": []
+    },
+    "45:click": {
+      "name": "toggle_shuffle",
+      "args": []
+    },
+    "50:click": {
+      "name": "advance",
+      "args": [
+        -1
+      ]
+    },
+    "51:click": {
+      "name": "command",
+      "args": [
+        "seek",
+        -10,
+        "relative"
+      ]
+    },
+    "41:click": {
+      "name": "command",
+      "args": [
+        "cycle",
+        "pause"
+      ]
+    },
+    "52:click": {
+      "name": "command",
+      "args": [
+        "seek",
+        10,
+        "relative"
+      ]
+    },
+    "53:click": {
+      "name": "advance",
+      "args": [
+        1
+      ]
+    },
+    "44:click": {
+      "name": "cycle_repeat",
+      "args": []
+    },
+    "42:click": {
+      "name": "command",
+      "args": [
+        "cycle",
+        "mute"
+      ]
+    },
+    "43:change": {
+      "name": "volume_change",
+      "args": []
+    },
+    "43:change_start": {
+      "name": "volume_start",
+      "args": []
+    },
+    "43:change_end": {
+      "name": "volume_end",
+      "args": []
+    },
+    "55:click": {
+      "name": "toggle_panel",
+      "args": [
+        "tracks"
+      ]
+    },
+    "56:click": {
+      "name": "toggle_panel",
+      "args": [
+        "library"
+      ]
+    },
+    "57:click": {
+      "name": "toggle_panel",
+      "args": [
+        "settings"
+      ]
+    },
+    "58:click": {
+      "name": "toggle_panel",
+      "args": [
+        "menu"
+      ]
+    },
+    "59:click": {
+      "name": "fullscreen",
+      "args": []
+    },
+    "67:hover": {
+      "name": "pointer_moved",
+      "args": []
+    },
+    "2:event": {
+      "name": "window_event",
+      "args": []
+    }
+  }
+}
