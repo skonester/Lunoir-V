@@ -28,7 +28,7 @@ fn (mut a App) retry_youtube_hls() bool {
 	a.ytdl_http_error = ''
 	a.ytdl_error = ''
 	a.try_set('ytdl-format',
-		youtube_hls_format(text_value(get(a.profile.settings, 'streamQuality'))))
+		youtube_hls_format(text_value(get(a.playback_settings(), 'streamQuality'))))
 	log_native('YouTube returned HTTP 403; retrying once with HLS audio and video')
 	a.load_current()
 	return true

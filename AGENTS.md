@@ -1,13 +1,13 @@
 # AGENTS.md - Lunoir V and v-mpv working notes
 
-## Current application (2026-11-13)
+## Current application (2026-11-14)
 
 Repository: https://github.com/skonester/Lunoir-V. The app is Windows-only and uses
 V 0.5.2/GCC 15.2, the shipped libmpv DLL, and Flet 1.0.5's Flutter desktop client.
-The app version is 0.2.0, sourced from root `VERSION`, embedded by
+The app version is 0.3.0, sourced from root `VERSION`, embedded by
 `v_lunoir/version.v`, displayed in General/About and startup logs, and included in
 the portable package. Root `v.mod` and `mpv/v.mod` version the binding separately
-at 0.1.0. App release tags use `v0.2.0` for this version.
+at 0.1.0. App release tags use `v0.3.0` for this version.
 
 The user requested removing unnecessary Python/TypeScript code after the manual V
 migration. The old Python application, virtual environment, Python test runner,
@@ -15,6 +15,8 @@ py2v tools/generated output/reports and TypeScript sources have been removed.
 Nine translation dictionaries (305 strings each) were converted without changing
 their keys or values to `lunoir/i18n/*.json`. No Python or Node/TypeScript toolchain
 is required to build or run the app. Do not reintroduce those dependencies.
+Live diagnostics, picture/preset controls and audio output add 51 translated keys
+per locale (356 strings each); the original 305 key/value pairs remain unchanged.
 
 The user rejected a separate Win32 player. Preserve Lunoir's existing Flet interface,
 assets, MIT license and credits. The behavior/design reference is Lunoir 0.9.4 at
@@ -56,10 +58,22 @@ Permitted focused checks with no media playback:
 $env:V_C_ERROR_BUG_REPORT_DISABLED = '1'
 v -subsystem console -cc gcc -no-retry-compilation v_lunoir/port_test.v
 v -subsystem console -cc gcc -no-retry-compilation v_lunoir/ytdl_retry_test.v
+v -subsystem console -cc gcc -no-retry-compilation v_lunoir/playback_async_test.v
+v -subsystem console -cc gcc -no-retry-compilation v_lunoir/picture_diagnostics_test.v
+v -subsystem console -cc gcc -no-retry-compilation v_lunoir/audio_updates_test.v
 ```
 
 The first checks formatting, profiles, JSON translations, control schema and wire
 encoding. The second checks the bounded YouTube retry policy without starting mpv.
+The third checks async request ordering, coalescing, errors, stale replies and
+bounded preview recovery. It uses an idle null-output mpv instance and supplied
+state/events, without loading any media or creating a window.
+The fourth checks live text updates, preset validation/persistence, rejected
+changes, translations and supported picture options against an idle mpv instance.
+It also never loads media or creates a window.
+The fifth checks device-list parsing, worker discovery/cleanup, output selection,
+missing-device fallback, deferred opening, settings debounce/retry/shutdown flush,
+coalesced patches, control-tree shape and slider drag guards, without media.
 Explicit `-subsystem console` keeps test diagnostics visible. Other V tests remain
 available but must not be run contrary to the user's media restriction.
 
@@ -82,6 +96,52 @@ migration. COM/in-process checks do not establish physical input paths.
 - `backend.v` calls the existing `mpv/` binding directly. Both playback and preview
   handles live inside the V process. `thumbs.v` preserves local-file-only previews,
   warm-up playback, throttled seeking and the original 320px preview geometry.
+- Runtime commands, property writes and requested reads use the binding's async
+  API. `backend.v` serializes requests because mpv permits async reordering, assigns
+  ids above the observer range, bounds the queue and coalesces unsent property
+  writes without crossing commands/reads. `backend-reply` carries completion and
+  errors; `playback_requests.v` applies screenshot/track/profile effects after
+  success and rejects stale file/panel/restoration replies. File changes cancel
+  old commands/reads while retaining option writes. The synchronous getter is
+  reserved for explicit diagnostic snapshots/tests; initialization and teardown
+  also remain synchronous.
+- `diagnostics.v` observes the actual decoder, decoded/displayed frame drops,
+  A/V sync, FPS, bitrates and cache state. The Info panel patches its existing
+  value controls once per second; it does not rebuild or synchronously poll for
+  every statistics event. Unavailable properties display a dash, including when
+  no decoder is loaded; zero drops remain distinct from missing values.
+- Settings > Playback includes an audio-output picker and refresh button.
+  `audio_outputs.v` discovers devices on a V worker with its own weak mpv client;
+  discovery runs at startup/on refresh, never per file. The main loop joins the
+  finished worker before accepting its result, and shutdown joins it before
+  destroying the playback core. Saved outputs are validated before restoration;
+  opening waits for a pending output choice, and missing devices fall back to
+  system default. `audioDevice` is saved only after the option write succeeds.
+- Property batches mark transport/panel/aspect/preview work dirty and flush once
+  at the end of the main-loop tick. `FletUi.set_id` keeps the final pending value
+  per control/property while preserving the original add/replace operation.
+  Control collections must be flat: appending a `[]json2.Any` to `[]json2.Any`
+  can insert a nested sum-type array; append controls individually instead.
+- Runtime settings use `Profile.stage_setting`/`stage_settings`. Accepted changes
+  update memory immediately, debounce disk writes for 1 second, skip unchanged or
+  reverted values, and retry failed writes on that cadence. Shutdown forces a
+  final flush. `set_setting` remains an explicit immediate save for startup/tests;
+  runtime callers should use `App.queue_setting` or the staged batch API.
+- Settings > Picture (`picture.v`) provides brightness, contrast, saturation,
+  gamma, debanding, interpolation and an upscaler choice. Interpolation also
+  sets `video-sync=display-resample`; disabling it restores audio sync. Named
+  presets live in `presets.json` under the profile and capture those controls
+  plus hardware decoding, deinterlacing, pitch correction and streaming quality.
+  Applying a preset replaces that managed set, filling absent keys with defaults.
+  Writes with completion work use `set_property_tracked` and cannot be coalesced
+  away. Accepted settings enter the save debounce only after every write succeeds;
+  mpv failures request the previous values and leave the profile unchanged. Pending values are
+  considered when another queue item is loaded before the acknowledgements arrive.
+- Preview load, warm-up, pause acknowledgement and seeks have 4-second deadlines.
+  A failure hides/resets the preview, cancels its pending requests and retries its
+  local file once after 250 ms. A second failure disables previews for that file
+  until the file changes or previews are toggled off/on. Aspect comes from an
+  observer, and stale request replies cannot complete a newer preview attempt.
 - `platform_win.h`, `drop_win.h` and V wrappers provide native video, process jobs,
   file dialogs, OLE drops, HTTP and single-instance handling. Flet joins a
   kill-on-close job so killing the V controller closes its client. Profile formats

@@ -330,6 +330,17 @@ fn (mut ui FletUi) set_id(id int, key string, value json2.Any) {
 	props[key] = value
 	ui.controls[id] = props.clone()
 	mut operations := (ui.pending[id] or { []json2.Any{} }).clone()
+	for i, operation in operations {
+		prior := list_value(operation)
+		if prior.len == 4 && text_value(prior[2]) == key {
+			// Preserve the first add/replace kind: the client has not received
+			// any of these changes yet. Only the final value may reference a
+			// rebuilt control tree whose older controls have been pruned.
+			operations[i] = json2.Any([prior[0], prior[1], prior[2], value])
+			ui.pending[id] = operations
+			return
+		}
+	}
 	operations << json2.Any([json2.Any(op), 0, key, value])
 	ui.pending[id] = operations
 }

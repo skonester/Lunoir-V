@@ -128,6 +128,13 @@ fn (mut a App) dispatch(name string, args []json2.Any, data json2.Any) {
 				})
 			}
 		}
+		'picture_reset' { a.apply_picture_changes(picture_defaults(), '') }
+		'preset_save_dialog' { a.preset_dialog() }
+		'preset_save' { a.save_named_preset() }
+		'preset_apply' { a.apply_named_preset(text_value(first)) }
+		'preset_delete' { a.delete_named_preset(text_value(first)) }
+		'audio_output_select' { a.select_audio_output(text_value(a.input_value(data))) }
+		'audio_output_refresh' { a.start_audio_discovery(true); a.panel_dirty = true }
 		'channel_search' {
 			a.channel_query = text_value(a.input_value(data))
 			a.fill_panel()
@@ -135,7 +142,7 @@ fn (mut a App) dispatch(name string, args []json2.Any, data json2.Any) {
 		'cycle_time_format' {
 			order := ['time', 'timecode', 'frame']
 			index := order.index(text_value(get(a.profile.settings, 'timeFormat')))
-			a.profile.set_setting('timeFormat', order[(index + 1) % 3]) or {}
+			a.queue_setting('timeFormat', order[(index + 1) % 3])
 			a.update_transport()
 		}
 		'cycle_repeat' {
@@ -306,13 +313,7 @@ fn (mut a App) fullscreen() {
 fn (mut a App) toggle_panel(mode string) {
 	a.panel_mode = if a.panel_mode == mode { '' } else { mode }
 	if a.panel_mode == 'info' {
-		a.info_data.clear()
-		for name in ['file-format', 'duration', 'file-size', 'video-codec', 'video-format',
-			'video-params/w', 'video-params/h', 'container-fps', 'video-bitrate',
-			'video-params/pixelformat', 'video-params/colormatrix', 'video-params/primaries',
-			'video-params/gamma', 'track-list'] {
-			a.info_data[name] = a.backend.get_property(name)
-		}
+		a.request_info()
 	}
 	a.fill_panel()
 	a.activity()
@@ -320,10 +321,8 @@ fn (mut a App) toggle_panel(mode string) {
 }
 
 fn (mut a App) change_setting(key string, value json2.Any) {
-	a.profile.set_setting(key, value) or {
-		a.notify(err.msg())
-		return
-	}
+	if key in preset_defaults() { a.apply_picture_changes({key: value}, ''); return }
+	a.queue_setting(key, value)
 	for property in properties_for(key, a.profile.settings) {
 		a.try_set(property.name, property.value)
 	}
@@ -351,6 +350,10 @@ fn (mut a App) change_setting(key string, value json2.Any) {
 	a.fill_panel()
 	a.update_transport()
 	a.layout()
+}
+
+fn (mut a App) queue_setting(key string, value json2.Any) {
+	a.profile.stage_setting(key, value, time.now().unix_milli())
 }
 
 fn (mut a App) style_modes() {
@@ -521,18 +524,14 @@ fn (mut a App) pick_files(kind string) {
 	match kind {
 		'add_audio', 'add_subtitle' {
 			audio := kind == 'add_audio'
-			a.command([json2.Any(if audio { 'audio-add' } else { 'sub-add' }), paths[0], 'select'])
-			if audio {
-				a.profile.save_audio(a.resume_target, {
-					'type': json2.Any('external')
-					'path': paths[0]
-				}) or {}
-			} else {
-				a.profile.save_subtitle(a.resume_target, {
-					'type': json2.Any('external')
-					'path': paths[0]
-				}) or {}
-			}
+			if !audio { a.subtitle_restore_token++ }
+			a.command_action([json2.Any(if audio { 'audio-add' } else { 'sub-add' }), paths[0], 'select'],
+				PlaybackAction{
+					kind: if audio { 'save-audio' } else { 'save-subtitle' }
+					revision: a.revision
+					target: a.resume_target
+					value: {'type': json2.Any('external'), 'path': paths[0]}
+				})
 		}
 		'add_files' {
 			a.queue << paths.map(Entry{ path: it })
@@ -580,15 +579,11 @@ fn (mut a App) screenshot() {
 		'time-pos'))))
 	mut args := [json2.Any('screenshot')]
 	if !truth(get(a.profile.settings, 'screenshotSubs')) { args << json2.Any('video') }
-	a.backend.command(args) or {
-		a.notify(err.msg())
-		return
-	}
-	a.notify(a.t.tr('toast.screenshotSaved'))
+	a.command_action(args, PlaybackAction{kind: 'screenshot', revision: a.revision})
 }
 
 fn (mut a App) select_track(audio bool, id json2.Any) {
-	a.try_set(if audio { 'aid' } else { 'sid' }, id)
+	if !audio { a.subtitle_restore_token++ }
 	mut selection := {
 		'type': json2.Any('embedded')
 		'id':   id
@@ -613,9 +608,14 @@ fn (mut a App) select_track(audio bool, id json2.Any) {
 			}
 		}
 	}
-	if audio {
-		a.profile.save_audio(a.resume_target, selection) or {}
-	} else {
-		a.profile.save_subtitle(a.resume_target, selection) or {}
+	request := a.backend.set_property_tracked(if audio { 'aid' } else { 'sid' }, id) or {
+		a.notify(err.msg())
+		return
+	}
+	a.playback_actions[request] = PlaybackAction{
+		kind: if audio { 'save-audio' } else { 'save-subtitle' }
+		revision: a.revision
+		target: a.resume_target
+		value: selection
 	}
 }

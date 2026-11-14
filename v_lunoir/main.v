@@ -143,6 +143,7 @@ fn run_player() ! {
 				}
 				app.try_set('screenshot-template', '%F_%wH-%wM-%wS')
 				app.ready = true
+				app.start_audio_discovery(false)
 				app.thumbs.parent = parent
 				app.drop = C.lv_drop_create(parent)
 				C.lv_instance_serve(instance, parent)

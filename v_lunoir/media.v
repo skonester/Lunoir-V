@@ -15,6 +15,7 @@ fn (mut a App) set_queue(entries []Entry) {
 
 fn (mut a App) open_paths(paths []string) {
 	if paths.len == 0 || !a.ready { return }
+	if a.defer_audio_open(paths, '', '') { return }
 	if paths.len > 1 && paths.all(!is_url(it) && os.is_file(it)
 		&& it.all_after_last('.').to_lower() in video_extensions) {
 		a.persist()
@@ -33,6 +34,7 @@ fn (mut a App) open_paths(paths []string) {
 
 fn (mut a App) open_target_path(target string, agent string) {
 	if !a.ready { return }
+	if a.defer_audio_open([]string{}, target, agent) { return }
 	a.persist()
 	a.revision++
 	a.pending_load = false
@@ -137,13 +139,17 @@ fn (mut a App) play_index(requested int) {
 	a.revision++
 	a.pending_load = false
 	a.index = index
+	a.backend.cancel_commands()
 	a.current = a.queue[index].path
 	a.resume_target = a.current
+	a.statistics.clear()
+	a.info_data.clear()
+	a.pending_resume = ''
 	a.ytdl_hls_retry = false
 	a.ytdl_http_error = ''
 	a.load_failed_at = 0
 	// A fallback is scoped to this load. The next item starts at the chosen quality.
-	for property in properties_for('streamQuality', a.profile.settings) {
+	for property in properties_for('streamQuality', a.playback_settings()) {
 		a.try_set(property.name, property.value)
 	}
 	for name in ['time-pos', 'duration', 'filename', 'media-title', 'metadata/by-key/uploader',
@@ -224,9 +230,19 @@ fn (mut a App) remove_item(index int) {
 fn (mut a App) handle_event(event map[string]json2.Any) {
 	kind := text_value(get(event, 'event'))
 	match kind {
+		'backend-reply' { a.handle_backend_reply(event) }
 		'property-change' {
 			name := text_value(get(event, 'name'))
 			data := get(event, 'data')
+			if name in diagnostic_properties {
+				a.statistics[name] = data
+				return
+			}
+			if name == 'audio-device' {
+				a.properties[name] = data
+				if a.panel_mode == 'settings' && a.settings_tab == 'playback' { a.panel_dirty = true }
+				return
+			}
 			if name == 'pause' && data == json2.Any(false)
 				&& time.now().unix_milli() < a.stepping_until {
 				return
@@ -235,7 +251,7 @@ fn (mut a App) handle_event(event map[string]json2.Any) {
 			if name == 'eof-reached' && truth(data) { a.advance(1, true) }
 			if name in ['track-list', 'aid', 'sid', 'chapter-list', 'chapter', 'ab-loop-a', 'ab-loop-b', 'speed']
 				&& a.panel_mode in ['tracks', 'chapters', 'menu'] {
-				a.fill_panel()
+				a.panel_dirty = true
 			}
 			if name == 'media-title' && a.index >= 0 && a.index < a.queue.len && is_url(a.current)
 				&& a.source_type != 'iptv' {
@@ -247,7 +263,7 @@ fn (mut a App) handle_event(event map[string]json2.Any) {
 						group: a.queue[a.index].group
 					}
 					if a.open_kind == 'url' { a.profile.rename_recent(a.open_target, title) or {} }
-					if a.panel_mode == 'playlist' { a.fill_panel() }
+					if a.panel_mode == 'playlist' { a.panel_dirty = true }
 				}
 			}
 			if name == 'seekable' && truth(data) && a.recent_pending && a.open_kind == 'url' {
@@ -261,9 +277,9 @@ fn (mut a App) handle_event(event map[string]json2.Any) {
 				a.recent_pending = false
 			}
 			if name in ['video-params/aspect', 'video-params/w', 'video-params/h'] {
-				a.apply_aspect()
+				a.aspect_dirty = true
 			}
-			if name == 'path' { a.sync_thumb() }
+			if name == 'path' { a.thumb_dirty = true }
 			a.update_transport()
 		}
 		'file-loaded' {
@@ -321,6 +337,7 @@ fn (mut a App) finish_failed_load() {
 }
 
 fn (mut a App) on_file_loaded() {
+	if a.panel_mode == 'info' { a.request_info() }
 	a.zoom = 0
 	a.pan_x = 0
 	a.pan_y = 0
@@ -340,47 +357,18 @@ fn (mut a App) on_file_loaded() {
 		else {}
 	}
 
-	for path in a.profile.subtitle_files(a.resume_target) {
-		if !is_url(path) && !os.exists(path) { continue
-		 }
-		tracks := list_value(a.backend.get_property('track-list'))
-		if !tracks.any(text_value(get(object(it), 'external-filename')) == path && text_value(get(object(it), 'type')) == 'sub') { a.command([
-				json2.Any('sub-add'),
-				path,
-				'auto',
-			]) }
-	}
-	saved := object(get(a.profile.subtitles, a.resume_target))
-	tracks := list_value(a.backend.get_property('track-list'))
-	match text_value(get(saved, 'type')) {
-		'none' {
-			a.try_set('sid', 'no')
-		}
-		'embedded' {
-			if tracks.any(text_value(get(object(it), 'type')) == 'sub'
-				&& !truth(get(object(it), 'external')) && get(object(it), 'id') == get(saved, 'id'))
-			{
-				a.try_set('sid', get(saved, 'id'))
-			}
-		}
-		'external' {
-			for tr in tracks {
-				track := object(tr)
-				if text_value(get(track, 'external-filename')) == text_value(get(saved, 'path'))
-					&& text_value(get(track, 'type')) == 'sub' {
-					a.try_set('sid', get(track, 'id'))
-					break
-				}
-			}
-		}
-		else {}
-	}
+	a.subtitle_restore_token++
+	a.subtitle_restore_attempted.clear()
+	a.read_restore_tracks()
 
 	if truth(get(a.profile.settings, 'resumePlayback')) && a.can_resume() {
 		position := number(get(a.profile.positions, a.resume_target))
 		if position > 5 {
-			a.command([json2.Any('seek'), position, 'absolute'])
-			a.pending_resume = clock(position)
+			a.command_action([json2.Any('seek'), position, 'absolute'], PlaybackAction{
+				kind: 'resume'
+				revision: a.revision
+				target: clock(position)
+			})
 		}
 	} else if !a.can_resume() {
 		a.profile.clear_position(a.resume_target) or {}
@@ -413,10 +401,15 @@ fn (mut a App) apply_aspect() {
 }
 
 fn (mut a App) go_home() {
+	a.audio_outputs.pending_open = AudioPendingOpen{}
 	a.persist()
 	a.revision++
+	a.backend.cancel_commands()
+	a.statistics.clear()
+	a.info_data.clear()
 	a.pending_load = false
 	a.pending_playlist = ''
+	a.pending_resume = ''
 	a.load_failed_at = 0
 	a.command([json2.Any('stop')])
 	a.has_media = false

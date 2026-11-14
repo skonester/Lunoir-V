@@ -11,23 +11,39 @@ const thumb_options = ['ao=null', 'volume=0', 'pause=yes', 'keepaspect=yes',
 	'osd-color=#FFCDCDD3', 'osd-outline-size=0', 'osd-shadow-offset=0', 'osd-back-color=#00000000',
 	'osd-align-x=center', 'osd-align-y=bottom', 'osd-margin-y=4', 'cursor-autohide=always']
 
+const thumb_timeout_ms = i64(4000)
+const thumb_retry_delay_ms = i64(250)
+
+enum PreviewStage {
+	idle
+	loading
+	warming
+	pausing
+	seeking
+}
+
 struct Thumbnails {
 mut:
-	parent     voidptr
-	backend    MpvController
-	surface    NativeVideo
-	loaded     string
-	enabled    bool
-	visible    bool
-	file_ready bool
-	loading    bool
-	warming    bool
-	has_frame  bool
-	video_h    f64 = 180
-	queued     f64 = -1
-	requested  f64 = -1
-	last_seek  i64
-	place_args []f64
+	parent         voidptr
+	backend        MpvController
+	surface        NativeVideo
+	loaded         string
+	enabled        bool
+	visible        bool
+	file_ready     bool
+	stage          PreviewStage
+	deadline       i64
+	retry_at       i64
+	retries        int
+	load_id        u64
+	pause_id       u64
+	awaiting_start bool
+	has_frame      bool
+	video_h        f64 = 180
+	queued         f64 = -1
+	requested      f64 = -1
+	last_seek      i64
+	place_args     []f64
 }
 
 fn (mut p Thumbnails) sync_file(path string) ! {
@@ -35,10 +51,15 @@ fn (mut p Thumbnails) sync_file(path string) ! {
 		p.enabled = false
 		p.loaded = ''
 		p.file_ready = false
+		p.has_frame = false
+		p.reset_request()
+		p.retry_at = 0
 		p.hide()
+		p.backend.cancel_pending()
 		if !isnil(p.backend.handle) { p.backend.command([json2.Any('stop')]) or {} }
 		return
 	}
+	if path == p.loaded { return }
 	p.enabled = true
 	if isnil(p.backend.handle) {
 		p.surface = new_video(p.parent, 8)!
@@ -46,49 +67,141 @@ fn (mut p Thumbnails) sync_file(path string) ! {
 			p.surface.close()
 			return err
 		}
+		p.backend.handle.observe_property(1, 'video-params/aspect', .node)!
 	}
-	if path == p.loaded { return }
 	p.hide()
 	p.loaded = path
+	p.backend.cancel_pending()
+	p.retries = 0
+	p.retry_at = 0
+	p.load(time.now().unix_milli()) or {
+		p.recover(err.msg(), time.now().unix_milli())
+		return err
+	}
+}
+
+fn (mut p Thumbnails) load(now i64) ! {
+	p.reset_request()
 	p.file_ready = false
-	p.loading = false
-	p.warming = false
 	p.has_frame = false
-	p.backend.command([json2.Any('loadfile'), path, 'replace'])!
+	p.awaiting_start = true
+	p.stage = .loading
+	p.deadline = now + thumb_timeout_ms
+	// All earlier replies belong to the stopped/timed-out attempt.
+	p.load_id = p.backend.command([json2.Any('loadfile'), p.loaded, 'replace'])!
+}
+
+fn (mut p Thumbnails) reset_request() {
+	p.stage = .idle
+	p.deadline = 0
+	p.pause_id = 0
+	p.awaiting_start = false
+}
+
+fn (mut p Thumbnails) recover(reason string, now i64) {
+	log_native('Seek preview: ${reason}')
+	p.hide()
+	p.reset_request()
+	p.file_ready = false
+	p.has_frame = false
+	p.retry_at = 0
+	// Drop unsent seeks and cancel an in-flight command before recovery. The
+	// main player's controller and media never participate in this reset.
+	p.backend.cancel_pending()
+	if !isnil(p.backend.handle) {
+		p.backend.set_property('pause', true) or {}
+		p.backend.command([json2.Any('stop')]) or {}
+	}
+	if p.enabled && p.loaded != '' && p.retries < 1 {
+		p.retries++
+		p.retry_at = now + thumb_retry_delay_ms
+	} else {
+		p.enabled = false
+	}
+}
+
+fn (mut p Thumbnails) watchdog(now i64) {
+	if p.deadline > 0 && now >= p.deadline {
+		p.recover('${p.stage} timed out', now)
+	}
+}
+
+fn (mut p Thumbnails) handle_event(event map[string]json2.Any, now i64) {
+	if !p.enabled || p.retry_at > 0 { return }
+	match text_value(get(event, 'event')) {
+		'backend-reply' {
+			id := u64(get(event, 'request_id').i64())
+			if id < p.load_id { return }
+			failure := text_value(get(event, 'error'))
+			if failure != '' {
+				p.recover(failure, now)
+				return
+			}
+			if p.stage == .pausing && id == p.pause_id {
+				p.has_frame = true
+				p.reset_request()
+			}
+		}
+		'start-file' {
+			p.awaiting_start = false
+		}
+		'file-loaded' {
+			if p.awaiting_start || p.stage != .loading { return }
+			p.deadline = now + thumb_timeout_ms
+		}
+		'property-change' {
+			if text_value(get(event, 'name')) == 'video-params/aspect' {
+				p.fit_aspect(number(get(event, 'data')))
+			}
+		}
+		'playback-restart' {
+			if p.awaiting_start { return }
+			match p.stage {
+				.loading {
+					p.file_ready = true
+					p.reset_request()
+				}
+				.warming {
+					p.stage = .pausing
+					p.deadline = now + thumb_timeout_ms
+					p.pause_id = p.backend.set_property('pause', true) or {
+						p.recover(err.msg(), now)
+						return
+					}
+				}
+				.seeking {
+					p.reset_request()
+				}
+				else {}
+			}
+		}
+		'end-file' {
+			if !p.awaiting_start && text_value(get(event, 'reason')) == 'error' {
+				p.recover('could not load preview media', now)
+			}
+		}
+		else {}
+	}
 }
 
 fn (mut p Thumbnails) tick() {
 	if isnil(p.backend.handle) { return }
+	now := time.now().unix_milli()
 	for event in p.backend.events() {
-		match text_value(get(event, 'event')) {
-			'file-loaded' {
-				p.loading = true
-				p.has_frame = false
-				p.fit_aspect()
-			}
-			'video-reconfig' {
-				p.fit_aspect()
-			}
-			'playback-restart' {
-				if p.loading {
-					p.loading = false
-					p.file_ready = true
-				} else if p.warming {
-					p.warming = false
-					p.has_frame = true
-					p.backend.set_property('pause', true) or {}
-				}
-			}
-			else {}
-		}
+		p.handle_event(event, now)
 	}
-	if p.visible && p.file_ready && p.queued >= 0 && time.now().unix_milli() - p.last_seek >= 70 {
+	p.watchdog(now)
+	if p.retry_at > 0 && now >= p.retry_at {
+		p.retry_at = 0
+		p.load(now) or { p.recover(err.msg(), now) }
+	}
+	if p.visible && p.file_ready && p.queued >= 0 && now - p.last_seek >= 70 {
 		p.flush()
 	}
 }
 
-fn (mut p Thumbnails) fit_aspect() {
-	mut aspect := number(p.backend.get_property('video-params/aspect'))
+fn (mut p Thumbnails) fit_aspect(value f64) {
+	mut aspect := value
 	if aspect <= 0.2 || aspect >= 6 { aspect = 16.0 / 9 }
 	height := clamp(math.round_to_even(320 / aspect), 90, 240)
 	if height == p.video_h { return }
@@ -100,7 +213,7 @@ fn (mut p Thumbnails) fit_aspect() {
 }
 
 fn (mut p Thumbnails) preview(position f64, x f64, top f64, width f64, docked bool) {
-	if !p.enabled || isnil(p.backend.handle) { return }
+	if !p.enabled || p.retry_at > 0 || isnil(p.backend.handle) { return }
 	if !p.visible {
 		p.visible = true
 		p.surface.show(true)
@@ -115,19 +228,29 @@ fn (mut p Thumbnails) preview(position f64, x f64, top f64, width f64, docked bo
 }
 
 fn (mut p Thumbnails) flush() {
-	if p.warming { return }
+	if p.stage != .idle { return }
 	position := p.queued
 	p.last_seek = time.now().unix_milli()
 	if !p.has_frame {
-		p.warming = true
-		p.backend.command([json2.Any('seek'), position, 'absolute+exact']) or {}
-		p.backend.set_property('pause', false) or {}
+		p.stage = .warming
+		p.deadline = p.last_seek + thumb_timeout_ms
+		p.backend.command([json2.Any('seek'), position, 'absolute+exact']) or {
+			p.recover(err.msg(), p.last_seek)
+			return
+		}
+		p.backend.set_property('pause', false) or { p.recover(err.msg(), p.last_seek) }
 		return
 	}
 	p.queued = -1
-	p.backend.set_property('pause', true) or {}
-	p.backend.command([json2.Any('seek'), position, 'absolute+exact']) or {}
-	p.backend.command([json2.Any('show-text'), duration_text(position), 100000]) or {}
+	p.stage = .seeking
+	p.deadline = p.last_seek + thumb_timeout_ms
+	p.backend.command([json2.Any('seek'), position, 'absolute+exact']) or {
+		p.recover(err.msg(), p.last_seek)
+		return
+	}
+	p.backend.command([json2.Any('show-text'), duration_text(position), 100000]) or {
+		p.recover(err.msg(), p.last_seek)
+	}
 }
 
 fn (mut p Thumbnails) place(x f64, top f64, width f64, docked bool) {
@@ -154,6 +277,11 @@ fn (mut p Thumbnails) close() {
 	p.backend.close()
 	if !isnil(p.surface.hwnd) { p.surface.close() }
 	p.enabled = false
+	p.loaded = ''
+	p.retry_at = 0
+	p.file_ready = false
+	p.has_frame = false
+	p.reset_request()
 }
 
 fn (mut a App) sync_thumb() {

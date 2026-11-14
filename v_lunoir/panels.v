@@ -213,6 +213,21 @@ fn (mut a App) fill_panel() {
 						'error':   'set.ytdl.failed'
 					}[a.ytdl_state] or { 'set.ytdl.desc' }), 11, '#92929C') }
 			}
+			if a.settings_tab == 'picture' { body = a.picture_panel() }
+			if a.settings_tab == 'playback' {
+				a.start_audio_discovery(false)
+				mut with_audio := a.audio_output_panel()
+				for control in body { with_audio << control }
+				body = with_audio.clone()
+			}
+			a.ui.set('panel_header', 'controls', [a.tabs({
+				'playback': a.t.tr('set.tab.playback')
+				'subs': a.t.tr('set.sec.subtitles')
+				'picture': a.t.tr('picture.title')
+				'interface': a.t.tr('set.sec.interface')
+				'general': a.t.tr('set.tab.general')
+			}, a.settings_tab, 'settings_tab'), a.icon_button('KEYBOARD_DOUBLE_ARROW_RIGHT_ROUNDED',
+				a.t.tr('common.collapse'), 'toggle_panel', [json2.Any('')])])
 		}
 		'tracks' {
 			a.player_tabs()
@@ -613,7 +628,11 @@ fn (mut a App) menu_panel() []json2.Any {
 fn (mut a App) info_panel() []json2.Any {
 	mut body := []json2.Any{}
 	data := a.info_data.clone()
-	if data.len == 0 { return [a.text(a.t.tr('info.noData'), 12, '#92929C')] }
+	if data.len == 0 {
+		body << a.text(a.t.tr('info.noData'), 12, '#92929C')
+		for control in a.statistics_panel() { body << control }
+		return body
+	}
 	duration, size := number(get(data, 'duration')), number(get(data, 'file-size'))
 	body << a.info_line('info.container', text_value(get(data, 'file-format')))
 	if duration > 0 { body << a.info_line('info.duration', duration_text(duration)) }
@@ -664,6 +683,7 @@ fn (mut a App) info_panel() []json2.Any {
 			'#92929C'
 		})
 	}
+	for control in a.statistics_panel() { body << control }
 	return body.filter(it !is json2.Null)
 }
 

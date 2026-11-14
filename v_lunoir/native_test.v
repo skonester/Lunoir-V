@@ -70,6 +70,7 @@ fn pump_native(mut a App, milliseconds i64) {
 		for event in a.backend.events() {
 			a.handle_event(event)
 		}
+		a.flush_playback_ui()
 		a.thumbs.tick()
 		time.sleep(10 * time.millisecond)
 	}
@@ -133,6 +134,11 @@ fn test_native_playback_restores_subtitles_resume_preview_and_screenshots() {
 	assert truth(a.thumbs.backend.get_property('pause'))
 	assert a.thumbs.surface.bounds == [240, 130, 320, 262]
 	a.screenshot()
+	screenshot_deadline := time.now().unix_milli() + 3000
+	for time.now().unix_milli() < screenshot_deadline {
+		pump_native(mut a, 50)
+		if (os.ls(os.join_path(directory, 'shots'))!).any(it.ends_with('.png')) { break }
+	}
 	assert (os.ls(os.join_path(directory, 'shots'))!).any(it.ends_with('.png'))
 	a.dispatch('volume_start', []json2.Any{}, json2.Null{})
 	a.dispatch('volume_change', []json2.Any{}, 37)

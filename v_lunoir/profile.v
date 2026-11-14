@@ -7,15 +7,21 @@ import x.json2
 
 struct Profile {
 mut:
-	directory      string
-	settings       map[string]json2.Any
-	positions      map[string]json2.Any
-	recents        []json2.Any
-	favourites     []json2.Any
-	playlist_items map[string]json2.Any
-	audio          map[string]json2.Any
-	subtitles      map[string]json2.Any
+	directory        string
+	settings         map[string]json2.Any
+	positions        map[string]json2.Any
+	recents          []json2.Any
+	favourites       []json2.Any
+	playlist_items   map[string]json2.Any
+	audio            map[string]json2.Any
+	subtitles        map[string]json2.Any
+	presets          map[string]json2.Any
+	saved_settings   map[string]json2.Any
+	settings_dirty   bool
+	settings_save_at i64
 }
+
+const settings_save_delay_ms = i64(1000)
 
 fn default_profile_directory() string {
 	base := os.getenv('APPDATA')
@@ -30,6 +36,7 @@ fn new_profile(directory string) Profile {
 	for key, value in object(p.read('settings.json', map[string]json2.Any{})) {
 		p.settings[key] = value
 	}
+	p.saved_settings = p.settings.clone()
 	p.positions = object(p.read('positions.json', map[string]json2.Any{}))
 	p.recents = list_value(p.read('recents.json', []json2.Any{}))
 	p.favourites = list_value(p.read('favourites.json', []json2.Any{}))
@@ -39,6 +46,11 @@ fn new_profile(directory string) Profile {
 	}
 	for key, value in object(p.read('subtitle-selections.json', map[string]json2.Any{})) {
 		if valid_subtitle(value) { p.subtitles[key] = value }
+	}
+	for name, value in object(p.read('presets.json', map[string]json2.Any{})) {
+		if valid_preset_name(name) {
+			if normalized := normalize_preset(value) { p.presets[name] = normalized }
+		}
 	}
 	return p
 }
@@ -56,8 +68,36 @@ fn (p &Profile) write(name string, data json2.Any) ! {
 }
 
 fn (mut p Profile) set_setting(key string, value json2.Any) ! {
-	p.settings[key] = value
+	p.stage_setting(key, value, time.now().unix_milli())
+	p.flush_settings(0, true)!
+}
+
+// Runtime UI changes update the accepted in-memory profile immediately, while
+// disk writes wait until changes settle. Startup/tests can use set_setting for
+// an explicit durable update; shutdown calls flush_settings with force=true.
+fn (mut p Profile) stage_setting(key string, value json2.Any, now i64) {
+	if key in p.settings && get(p.settings, key) == value { return }
+	mut settings := p.settings.clone()
+	settings[key] = value
+	p.stage_settings(settings, now)
+}
+
+fn (mut p Profile) stage_settings(settings map[string]json2.Any, now i64) {
+	if p.settings == settings { return }
+	p.settings = settings.clone()
+	p.settings_dirty = p.settings != p.saved_settings
+	p.settings_save_at = if p.settings_dirty { now + settings_save_delay_ms } else { 0 }
+}
+
+fn (mut p Profile) flush_settings(now i64, force bool) ! {
+	if !p.settings_dirty || (!force && now < p.settings_save_at) { return }
+	// A failed write stays dirty, but is retried on the debounce cadence rather
+	// than producing a disk operation and a log entry on every 20 ms tick.
+	p.settings_save_at = now + settings_save_delay_ms
 	p.write('settings.json', p.settings)!
+	p.saved_settings = p.settings.clone()
+	p.settings_dirty = false
+	p.settings_save_at = 0
 }
 
 fn (mut p Profile) save_position(target string, seconds f64, duration f64, seekable bool) ! {

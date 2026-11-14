@@ -26,6 +26,7 @@ fn screenshot_dir(settings map[string]json2.Any) string {
 
 fn properties_for(key string, settings map[string]json2.Any) []Property {
 	value := get(settings, key)
+	if key in picture_defaults() { return picture_properties(key, value) }
 	direct := {
 		'deinterlace': 'deinterlace'
 		'hwdec':       'hwdec'
@@ -109,6 +110,9 @@ fn startup_properties(settings map[string]json2.Any) []Property {
 	mut result := []Property{}
 	for key in applied_settings {
 		result << properties_for(key, settings)
+	}
+	for key, value in picture_snapshot(settings) {
+		result << picture_properties(key, value)
 	}
 	if truth(get(settings, 'rememberVolume')) {
 		result << Property{'volume', get(settings, 'volume')}

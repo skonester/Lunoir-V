@@ -5,6 +5,7 @@
   "resumePlaylistItem": true,
   "keepPitch": true,
   "audioLang": "",
+  "audioDevice": "auto",
   "subLang": "",
   "subsDefaultOn": true,
   "autoLoadSubs": true,

@@ -4,7 +4,7 @@
 
 # Lunoir V
 
-**Version 0.2.0**
+**Version 0.3.0**
 
 **A lightweight, mpv-powered media player for Windows: Lunoir's interface, without Electron.**
 
@@ -57,6 +57,10 @@ ships with a `.sha256` file so you can verify the download. Settings live in
   any playback speed
 - **A-B loop**, playback speed and aspect ratio presets, deinterlacing
 - **Screenshots** in your choice of format, saved straight to disk
+- **Picture controls** for brightness, contrast, saturation, gamma, debanding,
+  motion interpolation and upscaling, with named picture/playback presets
+- **Live playback statistics** in Info: actual hardware decoder, frame drops,
+  A/V sync, buffering, FPS and bitrates
 
 ### 💎 Interface
 
@@ -77,6 +81,8 @@ ships with a `.sha256` file so you can verify the download. Settings live in
 - Brightness control for subtitles over **HDR** video, for text and bitmap (PGS/VobSub)
   subtitles alike
 - Preferred audio and subtitle languages
+- **Audio-output device selection**, remembered between sessions, with background
+  discovery, manual refresh and system-default fallback
 
 ### 📺 Streaming and IPTV
 
@@ -194,7 +200,7 @@ fn main() {
 Lunoir features not ported yet:
 
 - [ ] Installer with file associations
-- [ ] Picture enhancement (sharpening, denoising, deblocking, upscaling shaders)
+- [ ] Additional picture enhancement (sharpening, denoising, deblocking, upscaling shaders)
 - [ ] Stream recording, timecode overlay, mini player
 - [ ] Update notifications
 - [ ] Timeline trimming and clips

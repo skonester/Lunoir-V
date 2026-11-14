@@ -69,6 +69,21 @@ mut:
 	ytdl_hls_retry       bool
 	load_failed_at       i64
 	info_data            map[string]json2.Any
+	info_token           u64
+	info_dirty           bool
+	info_refresh_at      i64
+	info_fields          map[string]int
+	statistics           map[string]json2.Any
+	transport_dirty      bool
+	panel_dirty          bool
+	aspect_dirty         bool
+	thumb_dirty          bool
+	picture_change       PictureChange
+	picture_serial       u64
+	audio_outputs        AudioOutputs
+	playback_actions     map[u64]PlaybackAction
+	subtitle_restore_token u64
+	subtitle_restore_attempted []string
 	work                 chan WorkResult = chan WorkResult{cap: 32}
 	revision             i64
 	ytdl_working         bool
@@ -224,6 +239,11 @@ fn (mut a App) layout() {
 
 fn (mut a App) tick() {
 	now := time.now().unix_milli()
+	a.poll_audio_devices()
+	a.resume_audio_open()
+	if a.panel_mode == 'info' {
+		if a.info_dirty { a.info_dirty = false; a.panel_dirty = true }
+	}
 	// Log messages can arrive after end-file; collect the HTTP cause before retrying.
 	if a.load_failed_at > 0 && now >= a.load_failed_at {
 		a.load_failed_at = 0
@@ -297,6 +317,9 @@ fn (mut a App) tick() {
 		a.layout()
 	}
 	if a.current != '' && now - a.last_saved > 5000 { a.persist() }
+	a.flush_playback_ui()
+	if a.panel_mode == 'info' && now >= a.info_refresh_at { a.refresh_statistics(now) }
+	a.profile.flush_settings(now, false) or { log_native('Settings save: ${err.msg()}') }
 }
 
 fn (mut a App) capture_snapshot() {
@@ -351,15 +374,17 @@ fn (mut a App) notify(message string) {
 	a.layout()
 }
 
-fn (mut a App) command(args []json2.Any) json2.Any {
-	return a.backend.command(args) or {
-		a.notify(err.msg())
-		return json2.Null{}
-	}
+fn (mut a App) command(args []json2.Any) {
+	a.command_action(args, PlaybackAction{revision: a.revision})
 }
 
 fn (mut a App) try_set(name string, value json2.Any) {
-	a.backend.set_property(name, value) or { log_native('mpv property ${name}: ${err.msg()}') }
+	id := a.backend.set_property(name, value) or {
+		log_native('mpv property ${name}: ${err.msg()}')
+		return
+	}
+	// A coalesced write replaces any earlier selection action for this id.
+	a.playback_actions.delete(id)
 }
 
 fn (a &App) live() bool {
@@ -395,6 +420,19 @@ fn (a &App) window_title() string {
 }
 
 fn (mut a App) update_transport() {
+	a.transport_dirty = true
+}
+
+// All property and input events in a main-loop batch see the latest state.
+// Render their shared controls once, retaining active slider drag behavior.
+fn (mut a App) flush_playback_ui() {
+	if a.aspect_dirty { a.aspect_dirty = false; a.apply_aspect() }
+	if a.thumb_dirty { a.thumb_dirty = false; a.sync_thumb() }
+	if a.panel_dirty { a.panel_dirty = false; a.fill_panel() }
+	if a.transport_dirty { a.transport_dirty = false; a.render_transport() }
+}
+
+fn (mut a App) render_transport() {
 	paused, muted := truth(get(a.properties, 'pause')), truth(get(a.properties, 'mute'))
 	a.ui.set('play_button', 'icon', get(a.ui.icons, if paused {
 		'PLAY_ARROW_ROUNDED'
@@ -467,22 +505,25 @@ fn (mut a App) persist() {
 	a.profile.save_position(a.resume_target, number(get(a.properties, 'time-pos')), number(get(a.properties,
 		'duration')), a.can_resume()) or { log_native(err.msg()) }
 	if truth(get(a.profile.settings, 'rememberVolume')) {
-		a.profile.set_setting('volume', get(a.properties, 'volume')) or {}
+		a.queue_setting('volume', get(a.properties, 'volume'))
 	}
 }
 
 fn (mut a App) close() {
+	// Discovery owns a weak client on the same core. Its thread must finish
+	// before the main controller is destroyed, including early shutdown.
+	a.audio_outputs.close()
 	if a.ready {
 		a.persist()
 		if truth(get(a.profile.settings, 'rememberWindow')) && !a.full_screen() {
 			mut bounds := []int{len: 4}
 			C.lv_bounds(a.surface.parent, bounds.data)
-			a.profile.set_setting('windowBounds', {
+			a.queue_setting('windowBounds', {
 				'x':      json2.Any(bounds[0])
 				'y':      bounds[1]
 				'width':  number(a.ui.prop('window', 'width'))
 				'height': number(a.ui.prop('window', 'height'))
-			}) or {}
+			})
 		}
 		if !isnil(a.drop) {
 			C.lv_drop_close(a.drop)
@@ -493,5 +534,6 @@ fn (mut a App) close() {
 		a.surface.close()
 		a.ready = false
 	}
+	a.profile.flush_settings(time.now().unix_milli(), true) or { log_native('Settings save: ${err.msg()}') }
 	a.ui.invoke(2, 'destroy', map[string]json2.Any{}, 'close') or {}
 }
